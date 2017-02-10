@@ -1,0 +1,40 @@
+{
+    "name": "appstract/lush-http",
+    "description": "Lush",
+    "keywords": [
+        "appstract",
+        ":package_name"
+    ],
+    "homepage": "https://github.com/appstract/:package_name",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": ":author_name",
+            "email": "lush@appstract.team",
+            "homepage": "https://appstract.team",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Appstract\\Lush\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Appstract\\Lush\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
