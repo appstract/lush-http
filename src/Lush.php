@@ -54,7 +54,7 @@ class Lush
      * @param array  $parameters
      * @param array  $headers
      *
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function get($url = '', $parameters = [], $headers = [])
     {
@@ -68,7 +68,7 @@ class Lush
      * @param array  $parameters
      * @param array  $headers
      *
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function post($url = '', $parameters = [], $headers = [])
     {
@@ -82,7 +82,7 @@ class Lush
      * @param array  $parameters
      * @param array  $headers
      *
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function put($url = '', $parameters = [], $headers = [])
     {
@@ -96,7 +96,7 @@ class Lush
      * @param array  $parameters
      * @param array  $headers
      *
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function delete($url = '', $parameters = [], $headers = [])
     {
@@ -111,7 +111,7 @@ class Lush
      * @param string $parameters
      * @param array  $headers
      *
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function request($method, $url = '', $parameters = '', $headers = [])
     {
@@ -127,7 +127,7 @@ class Lush
      * transforms data to send function
      *
      * @throws \Exception
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     protected function createRequest()
     {
@@ -149,7 +149,7 @@ class Lush
      * @param string $parameters
      * @param array  $headers
      *
-     * @return Response\LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     protected function send($method, $url, $parameters = '', $headers = [])
     {

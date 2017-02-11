@@ -48,15 +48,15 @@ class ResponseContent
     }
 
     /**
-     * @param $name
+     * @param $property
      *
-     * @return null
+     * @return mixed
      */
-    public function __get($name)
+    public function __get($property)
     {
         // check if the property is present in the content
-        if(isset($this->content->{$name})){
-            return $this->content->{$name};
+        if(isset($this->content->{ $property })){
+            return $this->content->{ $property };
         }
 
         return null;

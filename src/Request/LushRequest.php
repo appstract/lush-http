@@ -75,7 +75,7 @@ class LushRequest extends CurlRequest
     /**
      * Send the Curl request
      *
-     * @return LushResponse
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function send()
     {

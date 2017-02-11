@@ -2,7 +2,6 @@
 
 namespace Appstract\LushHttp\Response;
 
-
 class LushResponse
 {
     /**
@@ -91,7 +90,7 @@ class LushResponse
     /**
      * Get the original request
      *
-     * @return null
+     * @return \Appstract\LushHttp\Request\LushRequest
      */
     public function getRequest()
     {

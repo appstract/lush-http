@@ -45,7 +45,7 @@ abstract class CurlRequest
 
     /**
      * Sends the Curl requests and returns result array
-     * 
+     *
      * @return array
      */
     protected function makeRequest()
