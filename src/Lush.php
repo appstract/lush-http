@@ -39,8 +39,7 @@ class Lush
      */
     public function __construct($baseUrl = '')
     {
-        // append trailing slash
-        // if it is not set
+        // append trailing slash if it is missing
         if (!empty($baseUrl) && substr($baseUrl, -1) !== '/') {
             $baseUrl = $baseUrl.'/';
         }
