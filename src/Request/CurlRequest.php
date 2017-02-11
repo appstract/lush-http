@@ -4,12 +4,27 @@ namespace Appstract\LushHttp\Request;
 
 abstract class CurlRequest
 {
+    /**
+     * @var
+     */
     public $method;
+    /**
+     * @var
+     */
     public $payload;
 
+    /**
+     * @var array
+     */
     protected $options = [];
+    /**
+     * @var array
+     */
     protected $curlOptions = [];
 
+    /**
+     *  Merge default Curl options with given options
+     */
     protected function mergeCurlOptions()
     {
         $defaultOptions = [
@@ -28,6 +43,11 @@ abstract class CurlRequest
         $this->curlOptions = array_replace($defaultOptions, $this->options);
     }
 
+    /**
+     * Sends the Curl requests and returns result array
+     * 
+     * @return array
+     */
     protected function makeRequest()
     {
         // init Curl

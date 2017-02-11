@@ -104,7 +104,7 @@ class Lush
     }
 
     /**
-     * Creates request
+     * Create a request
      *
      * @param        $method
      * @param        $url
@@ -142,7 +142,7 @@ class Lush
     }
 
     /**
-     * Send the request
+     * Create the Lush request and send it
      *
      * @param        $method
      * @param        $url

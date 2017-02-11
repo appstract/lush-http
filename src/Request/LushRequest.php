@@ -73,7 +73,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Send the request
+     * Send the Curl request
      *
      * @return LushResponse
      */
