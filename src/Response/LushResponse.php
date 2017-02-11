@@ -1,6 +1,6 @@
 <?php
 
-namespace Appstract\LushHttp;
+namespace Appstract\LushHttp\Response;
 
 
 class LushResponse
@@ -27,28 +27,13 @@ class LushResponse
     }
 
     /**
-     * Check if content is json
-     *
-     * @return null
-     */
-    public function isJson()
-    {
-        json_decode($this->response['content']);
-        return json_last_error() == JSON_ERROR_NONE;
-    }
-
-    /**
      * Get the content of the result
      *
      * @return mixed
      */
     public function getResult()
     {
-        if($this->isJson()) {
-            return json_decode($this->response['content']);
-        }
-
-        return $this->response['content'];
+        return new ResponseContent($this->response['content']);
     }
 
     /**

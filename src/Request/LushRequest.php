@@ -1,9 +1,10 @@
 <?php
 
-namespace Appstract\LushHttp;
+namespace Appstract\LushHttp\Request;
 
+use Appstract\LushHttp\Response\LushResponse;
 
-class LushRequest extends Request
+class LushRequest extends CurlRequest
 {
 
     /**
@@ -79,7 +80,6 @@ class LushRequest extends Request
     public function send()
     {
         $response = $this->makeRequest();
-
         return new LushResponse($response, $this);
     }
 
