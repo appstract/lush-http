@@ -1,6 +1,6 @@
 <?php
 
-namespace Appstract\Lush;
+namespace Appstract\LushHttp;
 
 class Lush
 {
@@ -13,17 +13,12 @@ class Lush
     /**
      * @var string
      */
-    public $protocol;
-
-    /**
-     * @var string
-     */
-    public $baseUrl;
+    public $baseUrl = '';
 
     /**
      * @var
      */
-    public $path;
+    public $url;
 
     /**
      * @var array
@@ -39,103 +34,76 @@ class Lush
      * Lush constructor.
      *
      * @param string $baseUrl
-     * @param string $protocol
      */
-    public function __construct($baseUrl = 'localhost', $protocol = 'http')
+    public function __construct($baseUrl = '')
     {
+        // append trailing slash
+        // if it is not set
+        if (!empty($baseUrl) && substr($baseUrl, -1) !== '/') {
+            $baseUrl = $baseUrl.'/';
+        }
+
         $this->baseUrl = $baseUrl;
-        $this->protocol = $protocol;
     }
 
     /**
      * get shorthand
      *
-     * @param string $path
+     * @param string $url
      * @param array  $parameters
      * @param array  $headers
      *
      * @return LushResponse
      */
-    public function get($path = '', $parameters = [], $headers = [])
+    public function get($url = '', $parameters = [], $headers = [])
     {
-        $this->method       = 'GET';
-        $this->path         = $path;
-        $this->parameters   = $parameters;
-        $this->headers      = $headers;
-
-        return $this->createRequest();
+        return $this->request('GET', $url, $parameters, $headers);
     }
 
     /**
      * post shorthand
      *
-     * @param string $path
+     * @param string $url
      * @param array  $parameters
      * @param array  $headers
      *
      * @return LushResponse
      */
-    public function post($path = '', $parameters = [], $headers = [])
+    public function post($url = '', $parameters = [], $headers = [])
     {
-        $this->method       = 'POST';
-        $this->path         = $path;
-        $this->parameters   = $parameters;
-        $this->headers      = $headers;
-
-        return $this->createRequest();
+        return $this->request('POST', $url, $parameters, $headers);
     }
 
     /**
      * put shorthand
      *
-     * @param string $path
+     * @param string $url
      * @param array  $parameters
      * @param array  $headers
      *
      * @return LushResponse
      */
-    public function put($path = '', $parameters = [], $headers = [])
+    public function put($url = '', $parameters = [], $headers = [])
     {
-        $this->method       = 'PUT';
-        $this->path         = $path;
-        $this->parameters   = $parameters;
-        $this->headers      = $headers;
-
-        return $this->createRequest();
+        return $this->request('PUT', $url, $parameters, $headers);
     }
 
     /**
      * delete shorthand
      *
-     * @param string $path
+     * @param string $url
      * @param array  $parameters
      * @param array  $headers
      *
      * @return LushResponse
      */
-    public function delete($path = '', $parameters = [], $headers = [])
+    public function delete($url = '', $parameters = [], $headers = [])
     {
-        $this->method       = 'DELETE';
-        $this->path         = $path;
-        $this->parameters   = $parameters;
-        $this->headers      = $headers;
-
-        return $this->createRequest();
+        return $this->request('DELETE', $url, $parameters, $headers);
     }
 
     /**
-     * transforms data to request function
-     *
-     * @return LushResponse
-     */
-    protected function createRequest()
-    {
-        $url = $this->protocol.'://'.$this->baseUrl.'/'.$this->path;
-        return $this->request($this->method, $url, $this->parameters, $this->headers);
-    }
-
-    /**
-     * Creates the request
+     * Creates request
      *
      * @param        $method
      * @param        $url
@@ -144,7 +112,45 @@ class Lush
      *
      * @return LushResponse
      */
-    public function request($method, $url, $parameters = '', $headers = [])
+    public function request($method, $url = '', $parameters = '', $headers = [])
+    {
+        $this->method       = $method;
+        $this->url          = $url;
+        $this->parameters   = $parameters;
+        $this->headers      = $headers;
+
+        return $this->createRequest();
+    }
+
+    /**
+     * transforms data to send function
+     *
+     * @throws \Exception
+     * @return LushResponse
+     */
+    protected function createRequest()
+    {
+        $this->method   = strtoupper($this->method);
+        $this->url      = trim($this->baseUrl.$this->url);
+
+        if(empty($this->url)) {
+            throw new \Exception ('URL is empty');
+        }
+
+        return $this->send($this->method, $this->url, $this->parameters, $this->headers);
+    }
+
+    /**
+     * Send the request
+     *
+     * @param        $method
+     * @param        $url
+     * @param string $parameters
+     * @param array  $headers
+     *
+     * @return LushResponse
+     */
+    protected function send($method, $url, $parameters = '', $headers = [])
     {
         $request = new LushRequest($method, compact('url', 'parameters', 'headers'));
 

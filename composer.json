@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Appstract\\Lush\\": "src"
+            "Appstract\\LushHttp\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Appstract\\Lush\\Test\\": "tests"
+            "Appstract\\LushHttp\\Test\\": "tests"
         }
     },
     "scripts": {

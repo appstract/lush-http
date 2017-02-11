@@ -1,6 +1,6 @@
 <?php
 
-namespace Appstract\Lush;
+namespace Appstract\LushHttp;
 
 
 class LushRequest extends Request

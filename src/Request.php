@@ -1,6 +1,6 @@
 <?php
 
-namespace Appstract\Lush;
+namespace Appstract\LushHttp;
 
 
 abstract class Request
@@ -15,22 +15,18 @@ abstract class Request
     {
         $defaultOptions = [
             CURLOPT_RETURNTRANSFER  => true,            // return web page
-            CURLOPT_HEADER          => true,            // return headers
+            CURLOPT_HEADER          => false,            // return headers
             CURLOPT_FOLLOWLOCATION  => true,            // follow redirects
             CURLOPT_ENCODING        => '',              // handle compressed
             CURLOPT_CONNECTTIMEOUT  => 60,             // time-out on connect
             CURLOPT_TIMEOUT         => 300,             // time-out on response
-            //CURLOPT_POST            => true,            // true for post
-            //CURLOPT_POSTFIELDS      => $paramsString,   // post parameters,
             CURLOPT_AUTOREFERER     => true,
             CURLOPT_USERAGENT       => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Lush Http Client',
             //CURLOPT_COOKIEJAR       => storage_path('app/lushcookie.txt'),
             //CURLOPT_COOKIEFILE      => storage_path('app/lushcookie.txt'),
         ];
 
-        //$this->curlOptions = $defaultOptions;
         $this->curlOptions = array_replace($defaultOptions, $this->options);
-        //dd($this->curlOptions);
     }
 
     protected function makeRequest()
