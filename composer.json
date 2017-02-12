@@ -2,10 +2,15 @@
     "name": "appstract/lush-http",
     "description": "Lush",
     "keywords": [
+        "php",
         "appstract",
-        ":package_name"
+        "lush-http",
+        "lush",
+        "curl",
+        "http",
+        "client"
     ],
-    "homepage": "https://github.com/appstract/:package_name",
+    "homepage": "https://github.com/appstract/lush-http",
     "license": "MIT",
     "authors": [
         {

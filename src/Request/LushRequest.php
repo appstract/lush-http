@@ -6,7 +6,6 @@ use Appstract\LushHttp\Response\LushResponse;
 
 class LushRequest extends CurlRequest
 {
-
     /**
      * LushRequest constructor.
      *
@@ -36,7 +35,14 @@ class LushRequest extends CurlRequest
      */
     protected function addHeaders()
     {
-        //
+        $userHeaders = array_map(function ($key, $value) {
+            // format header like this 'x-header: value'
+            return sprintf('%s: %s', $key, $value);
+        }, array_keys($this->payload['headers']), $this->payload['headers']);
+
+        $headers = array_merge($this->defaultHeaders, $userHeaders);
+
+        $this->addOption(CURLOPT_HTTPHEADER, $headers);
     }
 
     /**
@@ -46,13 +52,20 @@ class LushRequest extends CurlRequest
     {
         $parameters = http_build_query($this->payload['parameters']);
 
-        if ($this->method == 'GET') {
-            $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
-        } else {
+        if ($this->method == 'POST') {
             $this->addOption(CURLOPT_POSTFIELDS, $parameters);
+        } else {
+            // append parameters in the url
+            $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
         }
     }
 
+    /**
+     * Add a option
+     *
+     * @param $key
+     * @param $value
+     */
     protected function addOption($key, $value)
     {
         $this->options[$key] = $value;
@@ -65,8 +78,14 @@ class LushRequest extends CurlRequest
     {
         // foreach this->payload['options'], add option
 
-        if($this->method == 'POST') {
+        if ($this->method == 'POST') {
             $this->addOption(CURLOPT_POST, true);
+        } else if (in_array($this->method, ['PUT', 'DELETE'])) {
+            $this->addOption(CURLOPT_CUSTOMREQUEST, $this->method);
+        }
+
+        if (defined('CURLOPT_PROTOCOLS')) {
+            $this->addOption(CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
         }
 
         $this->mergeCurlOptions();
