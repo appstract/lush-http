@@ -57,12 +57,12 @@ class Lush
     public function __construct($baseUrl = '', $options = [])
     {
         // without curl, we can do anything
-        if (!extension_loaded('curl') || !function_exists('curl_init')) {
+        if (! extension_loaded('curl') || ! function_exists('curl_init')) {
             throw new LushException('cUrl is not enabled on this server');
         }
 
         // append trailing slash if it is missing
-        if (!empty($baseUrl) && substr($baseUrl, -1) !== '/') {
+        if (! empty($baseUrl) && substr($baseUrl, -1) !== '/') {
             $baseUrl = $baseUrl.'/';
         }
 
@@ -71,7 +71,7 @@ class Lush
     }
 
     /**
-     * get shorthand
+     * get shorthand.
      *
      * @param string $url
      * @param array  $parameters
@@ -86,7 +86,7 @@ class Lush
     }
 
     /**
-     * post shorthand
+     * post shorthand.
      *
      * @param string $url
      * @param array  $parameters
@@ -101,7 +101,7 @@ class Lush
     }
 
     /**
-     * put shorthand
+     * put shorthand.
      *
      * @param string $url
      * @param array  $parameters
@@ -116,7 +116,7 @@ class Lush
     }
 
     /**
-     * delete shorthand
+     * delete shorthand.
      *
      * @param string $url
      * @param array  $parameters
@@ -131,7 +131,7 @@ class Lush
     }
 
     /**
-     * Create a request
+     * Create a request.
      *
      * @param        $method
      * @param        $url
@@ -143,25 +143,25 @@ class Lush
      */
     public function request($method, $url = '', $parameters = '', $headers = [], $options = [])
     {
-        $this->method       = $method;
-        $this->url          = $url;
-        $this->parameters   = $parameters;
-        $this->headers      = $headers;
-        $this->options      = array_merge($this->options, $options);
+        $this->method = $method;
+        $this->url = $url;
+        $this->parameters = $parameters;
+        $this->headers = $headers;
+        $this->options = array_merge($this->options, $options);
 
         return $this->createRequest();
     }
 
     /**
-     * transforms data to send function
+     * transforms data to send function.
      *
      * @throws \Exception
      * @return \Appstract\LushHttp\Response\LushResponse
      */
     protected function createRequest()
     {
-        $this->method   = strtoupper($this->method);
-        $this->url      = trim($this->baseUrl.$this->url);
+        $this->method = strtoupper($this->method);
+        $this->url = trim($this->baseUrl.$this->url);
 
         if (empty($this->url)) {
             throw new LushException('URL is empty', 100);
@@ -175,7 +175,7 @@ class Lush
     }
 
     /**
-     * Create the Lush request and send it
+     * Create the Lush request and send it.
      *
      * @param        $method
      * @param        $url
@@ -188,6 +188,7 @@ class Lush
     protected function send($method, $url, $parameters = '', $headers = [], $options = [])
     {
         $request = new LushRequest($method, compact('url', 'parameters', 'headers', 'options'));
+
         return $request->send();
     }
 }

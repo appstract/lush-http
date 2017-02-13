@@ -23,12 +23,12 @@ class LushResponse
      */
     public function __construct($response, LushRequest $request)
     {
-        $this->response     = $response;
-        $this->request      = $request;
+        $this->response = $response;
+        $this->request = $request;
     }
 
     /**
-     * Get the content of the result
+     * Get the content of the result.
      *
      * @return mixed
      */
@@ -38,7 +38,7 @@ class LushResponse
     }
 
     /**
-     * Get the headers
+     * Get the headers.
      *
      * @return mixed
      */
@@ -48,7 +48,7 @@ class LushResponse
     }
 
     /**
-     * Get a specific header
+     * Get a specific header.
      *
      * @param $header
      *
@@ -60,7 +60,7 @@ class LushResponse
     }
 
     /**
-     * Get the status code
+     * Get the status code.
      *
      * @return null
      */
@@ -70,7 +70,7 @@ class LushResponse
     }
 
     /**
-     * Get the original request
+     * Get the original request.
      *
      * @return \Appstract\LushHttp\Request\LushRequest
      */

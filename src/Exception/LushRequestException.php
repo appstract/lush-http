@@ -4,7 +4,6 @@ namespace Appstract\LushHttp\Exception;
 
 class LushRequestException extends BaseException
 {
-
     public $request;
 
     /**
@@ -26,5 +25,4 @@ class LushRequestException extends BaseException
     {
         return $this->request;
     }
-
 }

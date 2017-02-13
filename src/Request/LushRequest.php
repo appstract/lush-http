@@ -14,14 +14,14 @@ class LushRequest extends CurlRequest
      */
     public function __construct($method, $payload)
     {
-        $this->method   = $method;
-        $this->payload  = $payload;
+        $this->method = $method;
+        $this->payload = $payload;
 
         $this->prepareRequest();
     }
 
     /**
-     * Prepare the request
+     * Prepare the request.
      */
     protected function prepareRequest()
     {
@@ -31,7 +31,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Add request headers
+     * Add request headers.
      */
     protected function addHeaders()
     {
@@ -46,7 +46,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     *  Add request parameters
+     *  Add request parameters.
      */
     protected function addParameters()
     {
@@ -61,7 +61,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Add a option
+     * Add a option.
      *
      * @param $key
      * @param $value
@@ -72,20 +72,20 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Set request options
+     * Set request options.
      */
     protected function setOptions()
     {
         // Add user options
-        if(is_array($this->payload['options'])) {
-            foreach($this->payload['options'] as $option => $value) {
+        if (is_array($this->payload['options'])) {
+            foreach ($this->payload['options'] as $option => $value) {
                 $this->addOption(OptionResolver::resolve($option), $value);
             }
         }
 
         if ($this->method == 'POST') {
             $this->addOption(CURLOPT_POST, true);
-        } else if (in_array($this->method, ['PUT', 'DELETE'])) {
+        } elseif (in_array($this->method, ['PUT', 'DELETE'])) {
             $this->addOption(CURLOPT_CUSTOMREQUEST, $this->method);
         }
 
@@ -97,14 +97,14 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Send the Curl request
+     * Send the Curl request.
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
     public function send()
     {
         $response = $this->makeRequest();
+
         return new LushResponse($response, $this);
     }
-
 }
