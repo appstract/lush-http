@@ -53,8 +53,6 @@ abstract class CurlRequest
             CURLOPT_USERAGENT       => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Lush Http Client',
             //CURLOPT_COOKIEJAR       => storage_path('app/lushcookie.txt'),
             //CURLOPT_COOKIEFILE      => storage_path('app/lushcookie.txt'),
-            //CURLOPT_USERNAME
-            //CURLOPT_USERPWD
         ];
 
         $this->curlOptions = array_replace($defaultOptions, $this->options);

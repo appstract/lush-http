@@ -76,7 +76,12 @@ class LushRequest extends CurlRequest
      */
     protected function setOptions()
     {
-        // foreach this->payload['options'], add option
+        // Add user options
+        if(is_array($this->payload['options'])) {
+            foreach($this->payload['options'] as $option => $value) {
+                $this->addOption(OptionResolver::resolve($option), $value);
+            }
+        }
 
         if ($this->method == 'POST') {
             $this->addOption(CURLOPT_POST, true);

@@ -2,6 +2,8 @@
 
 namespace Appstract\LushHttp\Response;
 
+use Appstract\LushHttp\Request\LushRequest;
+
 class LushResponse
 {
     /**
@@ -19,7 +21,7 @@ class LushResponse
      * @param      $response
      * @param null $request
      */
-    public function __construct($response, $request = null)
+    public function __construct($response, LushRequest $request)
     {
         $this->response     = $response;
         $this->request      = $request;
@@ -65,26 +67,6 @@ class LushResponse
     public function getStatusCode()
     {
         return $this->getHeader('http_code');
-    }
-
-    /**
-     * Request contains curl errors
-     *
-     * @return bool
-     */
-    public function hasErrors()
-    {
-        return $this->response['errors']['code'] != 0;
-    }
-
-    /**
-     * Get curl errors
-     *
-     * @return mixed
-     */
-    public function getErrors()
-    {
-        return $this->response['errors'];
     }
 
     /**
