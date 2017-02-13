@@ -25,7 +25,7 @@ abstract class CurlRequest
      */
     protected $defaultHeaders = [
         'X-Http-Client: Lush Http',
-        'X-Lush-Http: 1'
+        'X-Lush-Http: 1',
     ];
 
     /**
@@ -38,7 +38,7 @@ abstract class CurlRequest
     protected $curlOptions = [];
 
     /**
-     *  Merge default Curl options with given options
+     *  Merge default Curl options with given options.
      */
     protected function mergeCurlOptions()
     {
@@ -59,7 +59,7 @@ abstract class CurlRequest
     }
 
     /**
-     * Sends the Curl requests and returns result array
+     * Sends the Curl requests and returns result array.
      *
      * @return array
      */
@@ -70,13 +70,13 @@ abstract class CurlRequest
         curl_setopt_array($request, $this->curlOptions);
 
         // get results
-        $content        = curl_exec($request);
-        $headers        = curl_getinfo($request);
+        $content = curl_exec($request);
+        $headers = curl_getinfo($request);
 
         if ($content === false) {
             $error = [
                 'code'      => curl_errno($request),
-                'message'   => curl_error($request)
+                'message'   => curl_error($request),
             ];
 
             curl_close($request);

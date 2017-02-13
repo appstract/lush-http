@@ -2,10 +2,8 @@
 
 namespace Appstract\LushHttp\Response;
 
-
 class ResponseContent
 {
-
     /**
      * @var mixed
      */
@@ -31,13 +29,13 @@ class ResponseContent
     }
 
     /**
-     * Check if content is json
+     * Check if content is json.
      *
      * @return null
      */
     public function isJson()
     {
-        if(!isset($this->isJson)){
+        if (! isset($this->isJson)) {
             json_decode($this->content);
             $this->isJson = (json_last_error() == JSON_ERROR_NONE);
         }
@@ -53,10 +51,8 @@ class ResponseContent
     public function __get($property)
     {
         // check if the property is present in the content
-        if(isset($this->content->{ $property })){
+        if (isset($this->content->{ $property })) {
             return $this->content->{ $property };
         }
-
-        return null;
     }
 }

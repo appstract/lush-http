@@ -1,4 +1,5 @@
 <?php
+
 namespace Appstract\LushHttp\Request;
 
 use Appstract\LushHttp\Exception\LushException;
@@ -17,7 +18,7 @@ class OptionResolver
         'timeout'           => CURLOPT_TIMEOUT,
         'connect_timeout'   => CURLOPT_CONNECTTIMEOUT,
         'encoding'          => CURLOPT_ENCODING,
-        'follow_redirects'  => CURLOPT_FOLLOWLOCATION
+        'follow_redirects'  => CURLOPT_FOLLOWLOCATION,
     ];
 
     /**
@@ -27,7 +28,7 @@ class OptionResolver
      */
     public static function resolve($option)
     {
-        if(isset(self::$resolve[$option])) {
+        if (isset(self::$resolve[$option])) {
             return self::$resolve[$option];
         }
 
