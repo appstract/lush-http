@@ -61,7 +61,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Add a option.
+     * Add option.
      *
      * @param $key
      * @param $value
@@ -85,7 +85,7 @@ class LushRequest extends CurlRequest
 
         if ($this->method == 'POST') {
             $this->addOption(CURLOPT_POST, true);
-        } elseif (in_array($this->method, ['PUT', 'DELETE'])) {
+        } elseif (in_array($this->method, ['DELETE', 'PATCH', 'PUT'])) {
             $this->addOption(CURLOPT_CUSTOMREQUEST, $this->method);
         }
 
