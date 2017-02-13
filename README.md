@@ -1,15 +1,27 @@
-# Very short description of the package
+# Lush http
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/appstract/lush-http.svg?style=flat-square)](https://packagist.org/packages/appstract/lush-http)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/appstract/lush-http/master.svg?style=flat-square)](https://travis-ci.org/appstract/lush-http)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/xxxxxxxxx.svg?style=flat-square)](https://insight.sensiolabs.com/projects/xxxxxxxxx)
-[![Quality Score](https://img.shields.io/scrutinizer/g/appstract/lush-http.svg?style=flat-square)](https://scrutinizer-ci.com/g/appstract/lush-http)
 [![Total Downloads](https://img.shields.io/packagist/dt/appstract/lush-http.svg?style=flat-square)](https://packagist.org/packages/appstract/lush-http)
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```lush-http``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
+Lush, a lightweight Http Client.
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+- fast,
+- synchronous,
+- simple,
+- easy to understand
+
+The goal is to delivery a small package for when you just need to do some Http calls, not to deliver a complex, expandable framework. We do support the most common features you need when making http calls.
+
+This package is still in development, you are free to try it, without any warranty.
+When we release a final version, we will try to make it as backwards-compatible as possible and we will even try to support multiple versions in the same project, to avoid version conflicts.
+
+@todo
+- support cookies
+- tests
+- docs
+
 
 ## Installation
 
@@ -22,8 +34,12 @@ composer require appstract/lush-http
 ## Usage
 
 ``` php
-$skeleton = new Appstract\Skeleton();
-echo $skeleton->echoPhrase('Hello, Appstract!');
+    $api = new Lush('http://example.com');
+    $response = $api->get('contacts', ['id' => 3]);
+    
+    $contact = $response->getResult();
+    
+    echo $contact->name;
 ```
 
 ## Changelog
@@ -46,16 +62,12 @@ If you discover any security related issues, please email hello@appstract.team i
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Olav van Schie](https://github.com/ovanschie)
 - [All Contributors](../../contributors)
 
 ## About Appstract
 
 Appstract is a small team from The Netherlands. <3 Laravel, Vue and other awesome tools.
-
-## Buy Us a Beer
-
-Would be awesome if you would [buy us a beer](https://paypal.me/:name)! :)
 
 ## License
 
