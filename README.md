@@ -12,7 +12,7 @@ Lush, a lightweight Http Client.
 - simple,
 - easy to understand
 
-The goal is to delivery a small package for when you just need to do some Http calls, not to deliver a complex, expandable framework. We do support the most common features you need when making http calls.
+The goal is to delivery a small package for when you just need to make some Http calls, not to deliver a complex, expandable framework. We do support the most common features you need when making Http calls.
 
 This package is still in development, you are free to try it, without any warranty.
 When we release a final version, we will try to make it as backwards-compatible as possible and we will even try to support multiple versions in the same project, to avoid version conflicts.
