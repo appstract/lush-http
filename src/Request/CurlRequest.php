@@ -2,6 +2,8 @@
 
 namespace Appstract\LushHttp\Request;
 
+use Appstract\LushHttp\Exception\LushRequestException;
+
 abstract class CurlRequest
 {
     /**
@@ -73,13 +75,19 @@ abstract class CurlRequest
         $content        = curl_exec($request);
         $headers        = curl_getinfo($request);
 
-        $errors = [
-            'code'      => curl_errno($request),
-            'message'   => curl_error($request)
-        ];
+        if ($content === false) {
+            $error = [
+                'code'      => curl_errno($request),
+                'message'   => curl_error($request)
+            ];
+
+            curl_close($request);
+
+            throw new LushRequestException($this, $error);
+        }
 
         curl_close($request);
 
-        return compact('content', 'headers', 'errors');
+        return compact('content', 'headers');
     }
 }

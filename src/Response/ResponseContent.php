@@ -28,8 +28,6 @@ class ResponseContent
         if ($this->isJson()) {
             $this->content = json_decode($this->content);
         }
-
-        return $this->content;
     }
 
     /**
