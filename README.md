@@ -1,4 +1,4 @@
-# Lush http
+# Lush Http
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/appstract/lush-http.svg?style=flat-square)](https://packagist.org/packages/appstract/lush-http)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -39,6 +39,8 @@ composer require appstract/lush-http
     
     $contact = $response->getResult();
     
+    // response returns json?
+    // you can directly access it's properties
     echo $contact->name;
 ```
 
