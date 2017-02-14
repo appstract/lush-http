@@ -76,6 +76,12 @@ class LushRequest extends CurlRequest
      */
     protected function setOptions()
     {
+        // Add authentication
+        if (isset($this->payload['options']['username']) && isset($this->payload['options']['password'])) {
+            $this->addOption(CURLOPT_USERPWD, sprintf('%s:%s', $this->payload['options']['username'], $this->payload['options']['password']));
+            unset($this->payload['options']['password']);
+        }
+
         // Add user options
         if (is_array($this->payload['options'])) {
             foreach ($this->payload['options'] as $option => $value) {
@@ -83,12 +89,14 @@ class LushRequest extends CurlRequest
             }
         }
 
+        // Set method
         if ($this->method == 'POST') {
             $this->addOption(CURLOPT_POST, true);
         } elseif (in_array($this->method, ['DELETE', 'PATCH', 'PUT'])) {
             $this->addOption(CURLOPT_CUSTOMREQUEST, $this->method);
         }
 
+        // Set allowed protocols
         if (defined('CURLOPT_PROTOCOLS')) {
             $this->addOption(CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
         }
