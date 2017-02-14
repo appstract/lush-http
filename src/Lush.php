@@ -71,63 +71,21 @@ class Lush
     }
 
     /**
-     * get shorthand.
+     * Magic shorthand method.
      *
-     * @param string $url
-     * @param array  $parameters
-     * @param array  $headers
-     * @param array  $options
+     * @param string $method
+     * @param array  $arguments
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
-    public function get($url = '', $parameters = [], $headers = [], $options = [])
+    public function __call($method, $arguments)
     {
-        return $this->request('GET', $url, $parameters, $headers, $options);
-    }
+        $url = isset($arguments[0]) ? $arguments[0] : '';
+        $parameters = isset($arguments[1]) ? $arguments[1] : [];
+        $headers = isset($arguments[2]) ? $arguments[2] : [];
+        $options = isset($arguments[3]) ? $arguments[3] : [];
 
-    /**
-     * post shorthand.
-     *
-     * @param string $url
-     * @param array  $parameters
-     * @param array  $headers
-     * @param array  $options
-     *
-     * @return \Appstract\LushHttp\Response\LushResponse
-     */
-    public function post($url = '', $parameters = [], $headers = [], $options = [])
-    {
-        return $this->request('POST', $url, $parameters, $headers, $options);
-    }
-
-    /**
-     * put shorthand.
-     *
-     * @param string $url
-     * @param array  $parameters
-     * @param array  $headers
-     * @param array  $options
-     *
-     * @return \Appstract\LushHttp\Response\LushResponse
-     */
-    public function put($url = '', $parameters = [], $headers = [], $options = [])
-    {
-        return $this->request('PUT', $url, $parameters, $headers, $options);
-    }
-
-    /**
-     * delete shorthand.
-     *
-     * @param string $url
-     * @param array  $parameters
-     * @param array  $headers
-     * @param array  $options
-     *
-     * @return \Appstract\LushHttp\Response\LushResponse
-     */
-    public function delete($url = '', $parameters = [], $headers = [], $options = [])
-    {
-        return $this->request('DELETE', $url, $parameters, $headers, $options);
+        return $this->request($method, $url, $parameters, $headers, $options);
     }
 
     /**
