@@ -17,6 +17,7 @@ class OptionResolver
         'connect_timeout'   => CURLOPT_CONNECTTIMEOUT,
         'encoding'          => CURLOPT_ENCODING,
         'follow_redirects'  => CURLOPT_FOLLOWLOCATION,
+        'fail_on_error'     => CURLOPT_FAILONERROR
     ];
 
     /**
