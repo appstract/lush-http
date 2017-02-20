@@ -13,18 +13,33 @@ class LushResponse
     /**
      * @var
      */
-    protected $response;
+    protected $headers;
+
+    /**
+     * @var mixed
+     */
+    public $content;
+
+    /**
+     * @var mixed
+     */
+    public $isJson;
 
     /**
      * LushResponse constructor.
      *
      * @param      $response
-     * @param null $request
+     * @param LushRequest $request
      */
     public function __construct($response, LushRequest $request)
     {
-        $this->response = $response;
         $this->request = $request;
+        $this->headers = $response['headers'];
+        $this->content = $response['content'];
+
+        if ($this->isJson()) {
+            $this->content = json_decode($this->content);
+        }
     }
 
     /**
@@ -34,7 +49,22 @@ class LushResponse
      */
     public function getResult()
     {
-        return new ResponseContent($this->response['content']);
+        return $this->content;
+    }
+
+    /**
+     * Check if content is json.
+     *
+     * @return null
+     */
+    public function isJson()
+    {
+        if (! isset($this->isJson)) {
+            json_decode($this->content);
+            $this->isJson = (json_last_error() == JSON_ERROR_NONE);
+        }
+
+        return $this->isJson;
     }
 
     /**
@@ -44,7 +74,7 @@ class LushResponse
      */
     public function getHeaders()
     {
-        return $this->response['headers'];
+        return $this->headers;
     }
 
     /**
@@ -56,7 +86,7 @@ class LushResponse
      */
     public function getHeader($header)
     {
-        return isset($this->response['headers'][$header]) ? $this->response['headers'][$header] : null;
+        return isset($this->headers[$header]) ? $this->headers[$header] : null;
     }
 
     /**
@@ -77,5 +107,20 @@ class LushResponse
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Magic getter for content properties
+     *
+     * @param $property
+     *
+     * @return mixed
+     */
+    public function __get($property)
+    {
+        // check if the property is present in the content
+        if (isset($this->content->{ $property })) {
+            return $this->content->{ $property };
+        }
     }
 }
