@@ -110,7 +110,7 @@ class LushResponse
     }
 
     /**
-     * Magic getter for content properties
+     * Magic getter for content properties.
      *
      * @param $property
      *
