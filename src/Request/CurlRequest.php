@@ -109,8 +109,8 @@ abstract class CurlRequest
 
         if ($content === false) {
             $error = [
-                'code'      => $this->client->getErrorCode,
-                'message'   => $this->client->getErrorMessage,
+                'code'      => $this->client->getErrorCode(),
+                'message'   => $this->client->getErrorMessage(),
             ];
 
             $this->client->close();
