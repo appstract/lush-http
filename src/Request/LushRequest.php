@@ -14,6 +14,8 @@ class LushRequest extends CurlRequest
      */
     public function __construct($method, $payload)
     {
+        parent::__construct();
+
         $this->method = $method;
         $this->payload = $payload;
 

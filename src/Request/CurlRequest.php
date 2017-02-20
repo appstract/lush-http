@@ -2,10 +2,13 @@
 
 namespace Appstract\LushHttp\Request;
 
+use Appstract\LushHttp\Exception\LushException;
 use Appstract\LushHttp\Exception\LushRequestException;
+use Appstract\LushHttp\Request\Adapter\AdapterInterface;
 
 abstract class CurlRequest
 {
+
     /**
      * @var
      */
@@ -38,6 +41,37 @@ abstract class CurlRequest
     protected $curlOptions = [];
 
     /**
+     * @var
+     */
+    protected $adapter = Adapter\Curl::class;
+
+    /**
+     * @var
+     */
+    protected $client;
+
+    /**
+     * CurlRequest constructor.
+     */
+    public function __construct()
+    {
+        // Check for alternative adapters
+        if (defined('LUSH_CURL_ADAPTER')) {
+            if (! class_exists(LUSH_CURL_ADAPTER)) {
+                throw new LushException(sprintf('Driver %s not found', LUSH_CURL_ADAPTER));
+            }
+
+            if (! class_implements(AdapterInterface::class)) {
+                throw new LushException(sprintf('Driver %s must implement %s', LUSH_CURL_ADAPTER, AdapterInterface::class));
+            }
+
+            $this->adapter = LUSH_CURL_ADAPTER;
+        }
+
+        $this->client = new $this->adapter();
+    }
+
+    /**
      *  Merge default Curl options with given options.
      */
     protected function mergeCurlOptions()
@@ -66,25 +100,25 @@ abstract class CurlRequest
     protected function makeRequest()
     {
         // init Curl
-        $request = curl_init($this->payload['url']);
-        curl_setopt_array($request, $this->curlOptions);
+        $this->client->init($this->payload['url']);
+        $this->client->setOptions($this->curlOptions);
 
         // get results
-        $content = curl_exec($request);
-        $headers = curl_getinfo($request);
+        $content = $this->client->execute();
+        $headers = $this->client->getInfo();
 
         if ($content === false) {
             $error = [
-                'code'      => curl_errno($request),
-                'message'   => curl_error($request),
+                'code'      => $this->client->getErrorCode,
+                'message'   => $this->client->getErrorMessage,
             ];
 
-            curl_close($request);
+            $this->client->close();
 
             throw new LushRequestException($this, $error);
         }
 
-        curl_close($request);
+        $this->client->close();
 
         return compact('content', 'headers');
     }

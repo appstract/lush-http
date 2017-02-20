@@ -9,6 +9,9 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
+    <php>
+        <const name="LUSH_CURL_ADAPTER" value=""/>
+    </php>
     <testsuites>
         <testsuite name="Appstract Test Suite">
             <directory>tests</directory>
