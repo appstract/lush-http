@@ -37,11 +37,9 @@ composer require appstract/lush-http
     $api = new Lush('http://example.com');
     $response = $api->get('contacts', ['id' => 3]);
     
-    $contact = $response->getResult();
-    
     // response returns json?
     // you can directly access it's properties
-    echo $contact->name;
+    echo $response->name;
 ```
 
 ## Changelog
