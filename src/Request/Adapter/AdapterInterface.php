@@ -2,7 +2,6 @@
 
 namespace Appstract\LushHttp\Request\Adapter;
 
-
 interface AdapterInterface
 {
     /**

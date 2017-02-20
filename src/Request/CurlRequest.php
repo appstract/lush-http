@@ -8,7 +8,6 @@ use Appstract\LushHttp\Request\Adapter\AdapterInterface;
 
 abstract class CurlRequest
 {
-
     /**
      * @var
      */
