@@ -50,7 +50,7 @@ $ composer test
 
 ## Contributing
 
-Contributions are welcome, [thanks to y'all](https://github.com/appstract/lush/graphs/contributors) :)
+Contributions are welcome, [thanks to y'all](https://github.com/appstract/lush-http/graphs/contributors) :)
 
 ## About Appstract
 
