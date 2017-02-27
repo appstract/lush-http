@@ -116,7 +116,7 @@ class LushResponse
      *
      * @return mixed
      */
-    public function __get($property)
+    public function &__get($property)
     {
         // check if the property is present in the content
         if (isset($this->content->{ $property })) {
