@@ -118,9 +118,13 @@ class LushResponse
      */
     public function &__get($property)
     {
+        $return = null;
+
         // check if the property is present in the content
         if (isset($this->content->{ $property })) {
-            return $this->content->{ $property };
+            $return = $this->content->{ $property };
         }
+
+        return $return;
     }
 }
