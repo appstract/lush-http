@@ -24,13 +24,16 @@ class LushResponse
     /**
      * @var mixed
      */
-    public $isJson;
+    protected $isJson;
 
     /**
      * @var mixed
      */
-    public $isXml;
+    protected $isXml;
 
+    /**
+     * @var bool
+     */
     protected $autoFormat = true;
 
     /**
@@ -181,12 +184,10 @@ class LushResponse
      */
     protected function formatContent()
     {
-        if ($this->isJson()) {
-            $this->content = json_decode($this->content);
-        }
-
         if ($this->isXml()) {
             $this->content = simplexml_load_string($this->content);
+        } else if ($this->isJson()) {
+            $this->content = json_decode($this->content);
         }
     }
 }
