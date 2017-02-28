@@ -7,11 +7,12 @@ use Appstract\LushHttp\Request\LushRequest;
 class LushResponse
 {
     /**
-     * @var null
+     * @var mixed
      */
     protected $request;
+
     /**
-     * @var
+     * @var mixed
      */
     protected $headers;
 
@@ -26,6 +27,11 @@ class LushResponse
     public $isJson;
 
     /**
+     * @var mixed
+     */
+    public $isXml;
+
+    /**
      * LushResponse constructor.
      *
      * @param      $response
@@ -37,9 +43,7 @@ class LushResponse
         $this->headers = $response['headers'];
         $this->content = $response['content'];
 
-        if ($this->isJson()) {
-            $this->content = json_decode($this->content);
-        }
+        $this->formatContent();
     }
 
     /**
@@ -59,12 +63,38 @@ class LushResponse
      */
     public function isJson()
     {
-        if (! isset($this->isJson)) {
+        if (isset($this->isJson)) {
+            return $this->isJson;
+        }
+
+        // check based on content header
+        if (strpos($this->getHeader('content_type'), 'application/json') !== false) {
+            $this->isJson = true;
+        } else {
+            // check based on content
             json_decode($this->content);
             $this->isJson = (json_last_error() == JSON_ERROR_NONE);
         }
 
         return $this->isJson;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isXml()
+    {
+        if (isset($this->isXml)) {
+            return $this->isXml;
+        }
+
+        if (strpos($this->getHeader('content_type'), 'text/xml') !== false) {
+            $this->isXml = true;
+        } else {
+            $this->isXml = false;
+        }
+
+        return $this->isXml;
     }
 
     /**
@@ -92,11 +122,21 @@ class LushResponse
     /**
      * Get the status code.
      *
-     * @return null
+     * @return string
      */
     public function getStatusCode()
     {
         return $this->getHeader('http_code');
+    }
+
+    /**
+     * Get the content type.
+     *
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->getHeader('content_type');
     }
 
     /**
@@ -126,5 +166,19 @@ class LushResponse
         }
 
         return $return;
+    }
+
+    /**
+     * Auto format content
+     */
+    protected function formatContent()
+    {
+        if ($this->isXml()) {
+            $this->content = simplexml_load_string($this->content);
+        }
+
+        if ($this->isJson()) {
+            $this->content = json_decode($this->content);
+        }
     }
 }
