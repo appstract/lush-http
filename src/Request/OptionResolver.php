@@ -7,7 +7,7 @@ use Appstract\LushHttp\Exception\LushException;
 class OptionResolver
 {
     /**
-     * Curl options
+     * Curl options.
      *
      * @var array
      */
@@ -23,7 +23,7 @@ class OptionResolver
     ];
 
     /**
-     * Lush options
+     * Lush options.
      *
      * @var array
      */
@@ -42,7 +42,7 @@ class OptionResolver
     {
         if (isset(self::$curlOptions[$option])) {
             return ['type' => 'curl_option', 'option' => self::$curlOptions[$option]];
-        } else if (in_array($option, self::$lushOptions)) {
+        } elseif (in_array($option, self::$lushOptions)) {
             return ['type' => 'lush_option'];
         }
 
