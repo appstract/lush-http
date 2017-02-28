@@ -44,7 +44,7 @@ class LushRequest extends CurlRequest
 
         $headers = array_merge($this->defaultHeaders, $userHeaders);
 
-        $this->addOption(CURLOPT_HTTPHEADER, $headers);
+        $this->addCurlOption(CURLOPT_HTTPHEADER, $headers);
     }
 
     /**
@@ -55,7 +55,7 @@ class LushRequest extends CurlRequest
         $parameters = http_build_query($this->payload['parameters']);
 
         if ($this->method == 'POST') {
-            $this->addOption(CURLOPT_POSTFIELDS, $parameters);
+            $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
         } else {
             // append parameters in the url
             $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
@@ -63,7 +63,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Add option.
+     * Add Lush option.
      *
      * @param $key
      * @param $value
@@ -74,33 +74,52 @@ class LushRequest extends CurlRequest
     }
 
     /**
+     * Add Curl option.
+     *
+     * @param $key
+     * @param $value
+     */
+    protected function addCurlOption($key, $value)
+    {
+        $this->curlOptions[$key] = $value;
+    }
+
+    /**
      * Set request options.
      */
     protected function setOptions()
     {
-        // Add authentication
-        if (isset($this->payload['options']['username']) && isset($this->payload['options']['password'])) {
-            $this->addOption(CURLOPT_USERPWD, sprintf('%s:%s', $this->payload['options']['username'], $this->payload['options']['password']));
-            unset($this->payload['options']['password']);
-        }
-
-        // Add user options
+        // Handle options from payload
         if (is_array($this->payload['options'])) {
-            foreach ($this->payload['options'] as $option => $value) {
-                $this->addOption(OptionResolver::resolve($option), $value);
+            $options = $this->payload['options'];
+
+            // Add authentication
+            if (isset($options['username']) && isset($options['password'])) {
+                $this->addCurlOption(CURLOPT_USERPWD, sprintf('%s:%s', $options['username'], $options['password']));
+            }
+
+            // Add user options
+            foreach ($options as $option => $value) {
+                $resolvedOption = OptionResolver::resolve($option);
+
+                if ($resolvedOption['type'] == 'curl_option') {
+                    $this->addCurlOption($resolvedOption['option'], $value);
+                } else {
+                    $this->addOption($option, $value);
+                }
             }
         }
 
         // Set method
         if ($this->method == 'POST') {
-            $this->addOption(CURLOPT_POST, true);
+            $this->addCurlOption(CURLOPT_POST, true);
         } elseif (in_array($this->method, ['DELETE', 'PATCH', 'PUT'])) {
-            $this->addOption(CURLOPT_CUSTOMREQUEST, $this->method);
+            $this->addCurlOption(CURLOPT_CUSTOMREQUEST, $this->method);
         }
 
         // Set allowed protocols
         if (defined('CURLOPT_PROTOCOLS')) {
-            $this->addOption(CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+            $this->addCurlOption(CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
         }
 
         $this->mergeCurlOptions();

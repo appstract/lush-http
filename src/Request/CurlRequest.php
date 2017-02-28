@@ -15,12 +15,19 @@ abstract class CurlRequest
     /**
      * @var
      */
+
     public $payload;
 
     /**
      * @var array
      */
     public $headers;
+
+
+    /**
+     * @var array
+     */
+    public $options = [];
 
     /**
      * @var array
@@ -30,10 +37,6 @@ abstract class CurlRequest
         'X-Lush-Http: 1',
     ];
 
-    /**
-     * @var array
-     */
-    protected $options = [];
     /**
      * @var array
      */
@@ -57,11 +60,11 @@ abstract class CurlRequest
         // Check for alternative adapters
         if (defined('LUSH_CURL_ADAPTER')) {
             if (! class_exists(LUSH_CURL_ADAPTER)) {
-                throw new LushException(sprintf('Driver %s not found', LUSH_CURL_ADAPTER));
+                throw new LushException(sprintf('Adapter %s not found', LUSH_CURL_ADAPTER));
             }
 
-            if (! class_implements(AdapterInterface::class)) {
-                throw new LushException(sprintf('Driver %s must implement %s', LUSH_CURL_ADAPTER, AdapterInterface::class));
+            if (! in_array(AdapterInterface::class, class_implements(LUSH_CURL_ADAPTER))) {
+                throw new LushException(sprintf('Adapter %s must implement %s', LUSH_CURL_ADAPTER, AdapterInterface::class));
             }
 
             $this->adapter = LUSH_CURL_ADAPTER;
@@ -89,7 +92,7 @@ abstract class CurlRequest
             //CURLOPT_COOKIEFILE      => storage_path('app/lushcookie.txt'),
         ];
 
-        $this->curlOptions = array_replace($defaultOptions, $this->options);
+        $this->curlOptions = array_replace($defaultOptions, $this->curlOptions);
     }
 
     /**
