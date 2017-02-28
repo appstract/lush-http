@@ -48,11 +48,11 @@ class LushResponse
         $this->headers = $response['headers'];
         $this->content = $response['content'];
 
-        if(isset($this->request->options['auto_format'])) {
+        if (isset($this->request->options['auto_format'])) {
             $this->autoFormat = $this->request->options['auto_format'];
         }
 
-        if($this->autoFormat) {
+        if ($this->autoFormat) {
             $this->formatContent();
         }
     }
@@ -180,13 +180,13 @@ class LushResponse
     }
 
     /**
-     * Auto format content
+     * Auto format content.
      */
     protected function formatContent()
     {
         if ($this->isXml()) {
             $this->content = simplexml_load_string($this->content);
-        } else if ($this->isJson()) {
+        } elseif ($this->isJson()) {
             $this->content = json_decode($this->content);
         }
     }

@@ -15,14 +15,12 @@ abstract class CurlRequest
     /**
      * @var
      */
-
     public $payload;
 
     /**
      * @var array
      */
     public $headers;
-
 
     /**
      * @var array
