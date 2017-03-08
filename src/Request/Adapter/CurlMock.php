@@ -82,7 +82,7 @@ class CurlMock implements AdapterInterface
      */
     public function execute()
     {
-        if (!$this->ch) {
+        if (! $this->ch) {
             throw new Exception('Curl request not initiated');
         }
 
@@ -104,7 +104,7 @@ class CurlMock implements AdapterInterface
      */
     public function getInfo()
     {
-        if (!$this->executed) {
+        if (! $this->executed) {
             throw new Exception('Curl request not executed');
         }
 
@@ -119,7 +119,7 @@ class CurlMock implements AdapterInterface
      */
     public function getErrorCode()
     {
-        if (!$this->executed) {
+        if (! $this->executed) {
             throw new Exception('Curl request not executed');
         }
 
@@ -134,7 +134,7 @@ class CurlMock implements AdapterInterface
      */
     public function getErrorMessage()
     {
-        if (!$this->executed) {
+        if (! $this->executed) {
             throw new Exception('Curl request not executed');
         }
 
@@ -150,7 +150,7 @@ class CurlMock implements AdapterInterface
     }
 
     /**
-     * Create a example response based on statuscode
+     * Create a example response based on statuscode.
      *
      * @param $statusCode
      *
@@ -164,7 +164,7 @@ class CurlMock implements AdapterInterface
                 return json_encode(['url' => $this->ch, 'status' => 'ok']);
             default:
                 // fail on error
-                if($this->curlOptions[45]) {
+                if ($this->curlOptions[45]) {
                     throw new LushRequestException($this, ['message' => sprintf('Mocked server error %d', $statusCode), 'code' => $statusCode]);
                 }
 
