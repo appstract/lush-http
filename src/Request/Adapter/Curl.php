@@ -24,11 +24,12 @@ class Curl implements AdapterInterface
     /**
      * Set options array.
      *
-     * @param array $options
+     * @param array $curlOptions
+     * @param array $lushOptions
      */
-    public function setOptions(array $options)
+    public function setOptions(array $curlOptions, array $lushOptions = null)
     {
-        curl_setopt_array($this->ch, $options);
+        curl_setopt_array($this->ch, $curlOptions);
     }
 
     /**

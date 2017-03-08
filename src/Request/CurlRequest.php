@@ -56,16 +56,16 @@ abstract class CurlRequest
     public function __construct()
     {
         // Check for alternative adapters
-        if (defined('LUSH_CURL_ADAPTER')) {
-            if (! class_exists(LUSH_CURL_ADAPTER)) {
-                throw new LushException(sprintf('Adapter %s not found', LUSH_CURL_ADAPTER));
+        if (defined('LUSH_ADAPTER')) {
+            if (! class_exists(LUSH_ADAPTER)) {
+                throw new LushException(sprintf('Adapter %s not found', LUSH_ADAPTER));
             }
 
-            if (! in_array(AdapterInterface::class, class_implements(LUSH_CURL_ADAPTER))) {
-                throw new LushException(sprintf('Adapter %s must implement %s', LUSH_CURL_ADAPTER, AdapterInterface::class));
+            if (! in_array(AdapterInterface::class, class_implements(LUSH_ADAPTER))) {
+                throw new LushException(sprintf('Adapter %s must implement %s', LUSH_ADAPTER, AdapterInterface::class));
             }
 
-            $this->adapter = LUSH_CURL_ADAPTER;
+            $this->adapter = LUSH_ADAPTER;
         }
 
         $this->client = new $this->adapter();
@@ -102,7 +102,7 @@ abstract class CurlRequest
     {
         // init Curl
         $this->client->init($this->payload['url']);
-        $this->client->setOptions($this->curlOptions);
+        $this->client->setOptions($this->curlOptions, $this->options);
 
         // get results
         $content = $this->client->execute();

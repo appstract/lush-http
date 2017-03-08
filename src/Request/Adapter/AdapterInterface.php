@@ -12,11 +12,12 @@ interface AdapterInterface
     public function init($url);
 
     /**
-     * @param array $options
+     * @param array $curlOptions
+     * @param array $lushOptions
      *
      * @return void
      */
-    public function setOptions(array $options);
+    public function setOptions(array $curlOptions, array $lushOptions);
 
     /**
      * @return mixed
