@@ -12,7 +12,6 @@ class OptionResolver
      * @var array
      */
     public static $curlOptions = [
-        'username'          => CURLOPT_USERNAME,        // username for authentication
         'user_agent'        => CURLOPT_USERAGENT,       // custom user agent
         'ua'                => CURLOPT_USERAGENT,       // alias for custom user agent
         'timeout'           => CURLOPT_TIMEOUT,         // timeout
@@ -29,8 +28,11 @@ class OptionResolver
      */
     public static $lushOptions = [
         'auto_format',          // automatic format response
+        'username',             // username for authentication
         'password',             // password for authentication
+
         'return_status',        // (internal) used for testing return status
+        'return_content_type', // (internal) used for testing content types
     ];
 
     /**
