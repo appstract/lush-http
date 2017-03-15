@@ -6,9 +6,8 @@ use Appstract\LushHttp\Response\LushResponse;
 
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * Run all the checks
+     * Run all the checks.
      *
      * @param LushResponse $response
      * @param array        $options
@@ -20,7 +19,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check headers
+     * Check headers.
      *
      * @param LushResponse $response
      */
@@ -30,7 +29,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $response->getHeaders());
 
         // check all individual headers
-        foreach($this->headers as $header) {
+        foreach ($this->headers as $header) {
             $this->assertNotNull($response->getHeader($header));
         }
 
@@ -43,7 +42,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check content
+     * Check content.
      *
      * @param LushResponse $response
      * @param null         $type

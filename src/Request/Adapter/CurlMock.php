@@ -2,8 +2,8 @@
 
 namespace Appstract\LushHttp\Request\Adapter;
 
-use Appstract\LushHttp\Exception\LushRequestException;
 use Exception;
+use Appstract\LushHttp\Exception\LushRequestException;
 
 class CurlMock implements AdapterInterface
 {
@@ -175,7 +175,7 @@ class CurlMock implements AdapterInterface
     }
 
     /**
-     * Create sample content for response
+     * Create sample content for response.
      *
      * @param $type
      *
@@ -185,10 +185,12 @@ class CurlMock implements AdapterInterface
     {
         if ($type == 'json') {
             $this->headers['content_type'] = 'application/json; charset=UTF-8';
+
             return json_encode(['url' => $this->ch, 'status' => 'ok']);
-        } else if ($type == 'xml') {
+        } elseif ($type == 'xml') {
             $this->headers['content_type'] = 'text/xml; charset=UTF-8';
-            return '<?xml version="1.0" encoding="UTF-8"?><result><url>'. $this->ch .'</url><status>ok</status></result>';
+
+            return '<?xml version="1.0" encoding="UTF-8"?><result><url>'.$this->ch.'</url><status>ok</status></result>';
         }
 
         return 'ok';

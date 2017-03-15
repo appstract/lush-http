@@ -6,7 +6,6 @@ use Appstract\LushHttp\Lush;
 
 class LushTest extends BaseTest
 {
-
     /**
      * @var array
      */
@@ -36,7 +35,7 @@ class LushTest extends BaseTest
     public function get_without_parameters()
     {
         $options = [
-            'url'           => 'http://localhost'
+            'url'           => 'http://localhost',
         ];
 
         // the test
@@ -52,7 +51,7 @@ class LushTest extends BaseTest
     {
         $options = [
             'url'           => 'http://localhost',
-            'content_type'  => 'xml'
+            'content_type'  => 'xml',
         ];
 
         // the test
@@ -68,7 +67,7 @@ class LushTest extends BaseTest
     {
         $options = [
             'url'           => 'http://localhost',
-            'content_type'  => 'json'
+            'content_type'  => 'json',
         ];
 
         // the test
