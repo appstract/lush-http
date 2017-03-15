@@ -7,12 +7,23 @@ use Appstract\LushHttp\Response\LushResponse;
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * Run all the checks
+     *
+     * @param LushResponse $response
+     * @param array        $options
+     */
     protected function checkAll(LushResponse $response, array $options)
     {
         $this->checkHeaders($response);
         $this->checkContent($response, isset($options['content_type']) ? $options['content_type'] : null);
     }
 
+    /**
+     * Check headers
+     *
+     * @param LushResponse $response
+     */
     protected function checkHeaders(LushResponse $response)
     {
         // get headers should return array
@@ -31,6 +42,12 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($response->getContentType());
     }
 
+    /**
+     * Check content
+     *
+     * @param LushResponse $response
+     * @param null         $type
+     */
     protected function checkContent(LushResponse $response, $type = null)
     {
         // we should have content

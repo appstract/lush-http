@@ -7,6 +7,9 @@ use Appstract\LushHttp\Lush;
 class LushTest extends BaseTest
 {
 
+    /**
+     * @var array
+     */
     protected $headers = [
         'content_type',
         'header_size',
