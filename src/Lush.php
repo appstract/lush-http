@@ -61,7 +61,8 @@ class Lush
             throw new LushException('cUrl is not enabled on this server');
         }
 
-        // append trailing slash if it is missing
+        // append trailing slash to the
+        // baseUrl if it is missing
         if (! empty($baseUrl) && substr($baseUrl, -1) !== '/') {
             $baseUrl = $baseUrl.'/';
         }
@@ -129,23 +130,12 @@ class Lush
             throw new LushException(sprintf("Method '%s' is not allowed", $this->method), 101);
         }
 
-        return $this->send($this->method, $this->url, $this->parameters, $this->headers, $this->options);
-    }
-
-    /**
-     * Create the Lush request and send it.
-     *
-     * @param        $method
-     * @param        $url
-     * @param string $parameters
-     * @param array  $headers
-     * @param array  $options
-     *
-     * @return \Appstract\LushHttp\Response\LushResponse
-     */
-    protected function send($method, $url, $parameters = '', $headers = [], $options = [])
-    {
-        $request = new LushRequest($method, compact('url', 'parameters', 'headers', 'options'));
+        $request = new LushRequest($this->method, [
+            'url' => $this->url,
+            'parameters' => $this->parameters,
+            'headers' => $this->headers,
+            'options' => $this->options
+        ]);
 
         return $request->send();
     }
