@@ -100,7 +100,6 @@ class LushRequest extends CurlRequest
             $this->addCurlOption(CURLOPT_CUSTOMREQUEST, $this->method);
         }
 
-
         // Set allowed protocols
         if (defined('CURLOPT_PROTOCOLS')) {
             $this->addCurlOption(CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
@@ -119,7 +118,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     *  Handle authentication
+     *  Handle authentication.
      */
     protected function handleAuthentication()
     {
@@ -129,7 +128,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     *  Handle user options
+     *  Handle user options.
      */
     protected function handleUserOptions()
     {

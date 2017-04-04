@@ -135,7 +135,7 @@ class Lush
             'url' => $this->url,
             'parameters' => $this->parameters,
             'headers' => $this->headers,
-            'options' => $this->options
+            'options' => $this->options,
         ]);
 
         return $request->send();
