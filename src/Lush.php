@@ -54,7 +54,7 @@ class Lush
      * @param string $baseUrl
      * @param array  $options
      */
-    public function __construct($baseUrl = '', $options = [])
+    public function __construct($baseUrl = '', array $options = [])
     {
         // without curl, we can do anything
         if (! extension_loaded('curl') || ! function_exists('curl_init')) {
@@ -79,7 +79,7 @@ class Lush
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
-    public function __call($method, $arguments)
+    public function __call($method, array $arguments)
     {
         $url = isset($arguments[0]) ? $arguments[0] : '';
         $parameters = isset($arguments[1]) ? $arguments[1] : [];
@@ -100,7 +100,7 @@ class Lush
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
-    public function request($method, $url = '', $parameters = '', $headers = [], $options = [])
+    public function request($method, $url = '', $parameters = '', array $headers = [], array $options = [])
     {
         $this->method = $method;
         $this->url = $url;

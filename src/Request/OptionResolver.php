@@ -36,7 +36,7 @@ class OptionResolver
     ];
 
     /**
-     * @param $option
+     * @param string $option
      *
      * @return mixed
      */

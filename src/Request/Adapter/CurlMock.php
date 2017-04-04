@@ -78,6 +78,7 @@ class CurlMock implements AdapterInterface
 
     /**
      * Execute the request.
+     *
      * @return mixed
      * @throws Exception
      */
@@ -155,6 +156,7 @@ class CurlMock implements AdapterInterface
      * Create a example response based on statuscode.
      *
      * @param $statusCode
+     * @param $contentType
      *
      * @return string
      */

@@ -9,10 +9,10 @@ class LushRequest extends CurlRequest
     /**
      * LushRequest constructor.
      *
-     * @param $method
-     * @param $payload
+     * @param string $method
+     * @param array $payload
      */
-    public function __construct($method, $payload)
+    public function __construct($method, array $payload)
     {
         parent::__construct();
 
@@ -65,8 +65,8 @@ class LushRequest extends CurlRequest
     /**
      * Add Lush option.
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      */
     protected function addOption($key, $value)
     {
@@ -76,8 +76,8 @@ class LushRequest extends CurlRequest
     /**
      * Add Curl option.
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      */
     protected function addCurlOption($key, $value)
     {
