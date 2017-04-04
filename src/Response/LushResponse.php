@@ -184,7 +184,9 @@ class LushResponse
      */
     protected function formatContent()
     {
-        if ($this->isXml()) {
+        if ($this->request->method == 'HEAD') {
+            $this->content = (object) $this->headers;
+        } elseif ($this->isXml()) {
             $this->content = simplexml_load_string($this->content);
         } elseif ($this->isJson()) {
             $this->content = json_decode($this->content);

@@ -13,6 +13,7 @@ class Lush
     protected $allowedMethods = [
         'DELETE',
         'GET',
+        'HEAD',
         'PATCH',
         'POST',
         'PUT',
@@ -127,7 +128,7 @@ class Lush
         }
 
         if (! in_array($this->method, $this->allowedMethods)) {
-            throw new LushException(sprintf("Method '%s' is not allowed", $this->method), 101);
+            throw new LushException(sprintf("Method '%s' is not supported", $this->method), 101);
         }
 
         $request = new LushRequest($this->method, [
