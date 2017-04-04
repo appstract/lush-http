@@ -35,7 +35,7 @@ class LushTest extends BaseTest
     public function get_without_parameters()
     {
         $options = [
-            'url'           => 'http://localhost',
+            'url' => 'http://localhost',
         ];
 
         // the test
@@ -44,6 +44,33 @@ class LushTest extends BaseTest
 
         // check it
         $this->checkAll($response, $options);
+    }
+
+    /** @test */
+    public function get_with_parameters()
+    {
+        $options = [
+            'url' => 'http://localhost',
+            'parameters' => [
+                'user_id' => 3,
+                'name' => 'john'
+            ]
+        ];
+
+        // the test
+        $lush = new Lush($options['url']);
+        $response = $lush->get('', $options['parameters']);
+
+        // check it
+        $this->checkAll($response, $options);
+
+        $this->assertArrayHasKey('user_id', $lush->parameters);
+        $this->assertArrayHasKey('name', $lush->parameters);
+
+        $this->assertArrayHasKey('user_id', $response->getRequest()->payload['parameters']);
+        $this->assertArrayHasKey('name', $response->getRequest()->payload['parameters']);
+
+        $this->checkUrlParameters($response->getRequest()->payload['url'], $options['parameters']);
     }
 
     /** @test */

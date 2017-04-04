@@ -65,4 +65,17 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
             $this->assertNotNull($result->url);
         }
     }
+
+    /**
+     * Check if parameters are present in url
+     *
+     * @param string $url
+     * @param array $parameters
+     */
+    protected function checkUrlParameters($url, array $parameters)
+    {
+        $url = parse_url($url);
+
+        $this->assertEquals($url['query'], http_build_query($parameters));
+    }
 }
