@@ -67,7 +67,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check if parameters are present in url
+     * Check if parameters are present in url.
      *
      * @param string $url
      * @param array $parameters

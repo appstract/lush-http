@@ -53,8 +53,8 @@ class LushTest extends BaseTest
             'url' => 'http://localhost',
             'parameters' => [
                 'user_id' => 3,
-                'name' => 'john'
-            ]
+                'name' => 'john',
+            ],
         ];
 
         // the test
