@@ -5,22 +5,20 @@
 [![Build Status](https://img.shields.io/travis/appstract/lush-http/master.svg?style=flat-square)](https://travis-ci.org/appstract/lush-http)
 [![Total Downloads](https://img.shields.io/packagist/dt/appstract/lush-http.svg?style=flat-square)](https://packagist.org/packages/appstract/lush-http)
 
-Lush, a lightweight Http Client.
+##A Fast, Synchronous and Smart Http Client for PHP.
 
-- fast,
-- synchronous,
-- simple,
-- easy to understand
+The goal is to delivery a small package for when you just need to make some Http calls, not to deliver a complex, expandable framework. 
+We support the most common features you need when making Http calls.
 
-The goal is to delivery a small package for when you just need to make some Http calls, not to deliver a complex, expandable framework. We do support the most common features you need when making Http calls.
+[wip]
 
 This package is still in development, you are free to try it, without any warranty.
 When we release a final version, we will try to make it as backwards-compatible as possible and we will even try to support multiple versions in the same project, to avoid version conflicts.
 
-@todo
-- support cookies
-- tests
-- docs
+Todo
+- Support cookies
+- More tests
+- Docs
 
 
 ## Installation
