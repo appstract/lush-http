@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/travis/appstract/lush-http/master.svg?style=flat-square)](https://travis-ci.org/appstract/lush-http)
 [![Total Downloads](https://img.shields.io/packagist/dt/appstract/lush-http.svg?style=flat-square)](https://packagist.org/packages/appstract/lush-http)
 
-##A Fast, Synchronous and Smart Http Client for PHP.
+## A Fast, Synchronous and Smart Http Client for PHP.
 
 The goal is to delivery a small package for when you just need to make some Http calls, not to deliver a complex, expandable framework. 
 We support the most common features you need when making Http calls.
@@ -20,6 +20,9 @@ Todo
 - More tests
 - Docs
 
+## Requirements
+- PHP 5.6+
+- php_curl
 
 ## Installation
 
