@@ -1,6 +1,6 @@
 {
     "name": "appstract/lush-http",
-    "description": "Fast, Synchronous and Smart Http Client for PHP.",
+    "description": "Smart Http Client for PHP.",
     "keywords": [
         "php",
         "appstract",
