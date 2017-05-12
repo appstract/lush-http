@@ -54,7 +54,7 @@ class LushRequest extends CurlRequest
     {
         $parameters = http_build_query($this->payload['parameters']);
 
-        if ($this->method == 'POST') {
+        if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
             $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
         } else {
             // append parameters in the url
