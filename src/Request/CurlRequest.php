@@ -113,7 +113,7 @@ abstract class CurlRequest
             $error = [
                 'code'      => $this->client->getErrorCode(),
                 'message'   => $this->client->getErrorMessage(),
-                'content'   => $content
+                'content'   => $content,
             ];
 
             $this->client->close();
