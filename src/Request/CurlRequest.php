@@ -108,10 +108,12 @@ abstract class CurlRequest
         $content = $this->client->execute();
         $headers = $this->client->getInfo();
 
-        if ($content === false) {
+        // get errors
+        if ($content === false || substr($headers['http_code'], 0, 1) != 2) {
             $error = [
                 'code'      => $this->client->getErrorCode(),
                 'message'   => $this->client->getErrorMessage(),
+                'content'   => $content
             ];
 
             $this->client->close();

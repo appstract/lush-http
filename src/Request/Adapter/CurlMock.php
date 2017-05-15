@@ -169,7 +169,7 @@ class CurlMock implements AdapterInterface
             default:
                 // fail on error
                 if ($this->curlOptions[45]) {
-                    throw new LushRequestException($this, ['message' => sprintf('%d - Mocked server error', $statusCode), 'code' => $statusCode]);
+                    throw new LushRequestException($this, ['message' => sprintf('%d - Mocked server error', $statusCode), 'code' => $statusCode, 'content' => 'false']);
                 }
 
                 return json_encode(['url' => $this->ch, 'status' => sprintf('Error: %d', $statusCode)]);
