@@ -5,6 +5,7 @@ namespace Appstract\LushHttp\Request;
 use Appstract\LushHttp\Exception\LushException;
 use Appstract\LushHttp\Exception\LushRequestException;
 use Appstract\LushHttp\Request\Adapter\AdapterInterface;
+use Appstract\LushHttp\Response\LushResponse;
 
 abstract class CurlRequest
 {
@@ -96,7 +97,7 @@ abstract class CurlRequest
     /**
      * Sends the Curl requests and returns result array.
      *
-     * @return array
+     * @return \Appstract\LushHttp\Response\LushResponse
      */
     protected function makeRequest()
     {
@@ -108,12 +109,14 @@ abstract class CurlRequest
         $content = $this->client->execute();
         $headers = $this->client->getInfo();
 
-        // get errors
+        $response = new LushResponse(compact('content', 'headers'), $this);
+
+        // handle errors
         if ($content === false || substr($headers['http_code'], 0, 1) != 2) {
             $error = [
                 'code'      => $this->client->getErrorCode(),
                 'message'   => $this->client->getErrorMessage(),
-                'content'   => $content,
+                'response'   => $response,
             ];
 
             $this->client->close();
@@ -123,6 +126,6 @@ abstract class CurlRequest
 
         $this->client->close();
 
-        return compact('content', 'headers');
+        return $response;
     }
 }

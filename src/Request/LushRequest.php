@@ -2,7 +2,6 @@
 
 namespace Appstract\LushHttp\Request;
 
-use Appstract\LushHttp\Response\LushResponse;
 
 class LushRequest extends CurlRequest
 {
@@ -150,8 +149,6 @@ class LushRequest extends CurlRequest
      */
     public function send()
     {
-        $response = $this->makeRequest();
-
-        return new LushResponse($response, $this);
+        return $this->makeRequest();
     }
 }

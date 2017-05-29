@@ -12,7 +12,7 @@ class LushRequestException extends BaseException
     /**
      * @var mixed
      */
-    public $content;
+    public $response;
 
     /**
      * RequestException constructor.
@@ -23,7 +23,7 @@ class LushRequestException extends BaseException
     public function __construct($request, array $error)
     {
         $this->request = $request;
-        $this->content = $error['content'];
+        $this->response = $error['response'];
 
         parent::__construct($error['message'], $error['code']);
     }
@@ -39,8 +39,16 @@ class LushRequestException extends BaseException
     /**
      * @return string
      */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * @return string
+     */
     public function getContent()
     {
-        return $this->content;
+        return $this->response->getResult();
     }
 }
