@@ -2,7 +2,6 @@
 
 namespace Appstract\LushHttp\Request;
 
-
 class LushRequest extends CurlRequest
 {
     /**
