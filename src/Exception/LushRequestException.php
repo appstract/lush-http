@@ -26,7 +26,7 @@ class LushRequestException extends BaseException
         $this->response = $error['response'];
 
         if (! isset($error['message']) || empty($error['message'])) {
-            $error['message'] = $this->getContent();
+            $error['message'] = json_encode($this->getContent());
         }
 
         parent::__construct($error['message'], $error['code']);
