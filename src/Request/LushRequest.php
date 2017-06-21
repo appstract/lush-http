@@ -71,7 +71,7 @@ class LushRequest extends CurlRequest
     {
         return isset($this->getHeaders()[$header]) ? $this->getHeaders()[$header] : null;
     }
-    
+
     /**
      * Prepare the request.
      */
