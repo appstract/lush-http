@@ -61,6 +61,18 @@ class LushRequest extends CurlRequest
     }
 
     /**
+     * Get a specific header.
+     *
+     * @param $header
+     *
+     * @return mixed
+     */
+    public function getHeader($header)
+    {
+        return isset($this->getHeaders()[$header]) ? $this->getHeaders()[$header] : null;
+    }
+    
+    /**
      * Prepare the request.
      */
     protected function prepareRequest()
