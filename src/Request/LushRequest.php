@@ -45,11 +45,35 @@ class LushRequest extends CurlRequest
     }
 
     /**
+     * Get a specific parameter.
+     *
+     * @param $parameter
+     *
+     * @return mixed
+     */
+    public function getParameter($parameter)
+    {
+        return isset($this->getParameters()[$parameter]) ? $this->getParameters()[$parameter] : null;
+    }
+
+    /**
      * @return array|mixed
      */
     public function getOptions()
     {
         return isset($this->payload['options']) ? $this->payload['options'] : [];
+    }
+
+    /**
+     * Get a specific option.
+     *
+     * @param $option
+     *
+     * @return mixed
+     */
+    public function getOption($option)
+    {
+        return isset($this->getOptions()[$option]) ? $this->getOptions()[$option] : null;
     }
 
     /**
