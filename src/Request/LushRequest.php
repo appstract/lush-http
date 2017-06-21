@@ -21,6 +21,46 @@ class LushRequest extends CurlRequest
     }
 
     /**
+     * @return array
+     */
+    public function getPayload()
+    {
+        return $this->payload;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getUrl()
+    {
+        return isset($this->payload['url']) ? $this->payload['url'] : '';
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getParameters()
+    {
+        return isset($this->payload['parameters']) ? $this->payload['parameters'] : [];
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getOptions()
+    {
+        return isset($this->payload['options']) ? $this->payload['options'] : [];
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getHeaders()
+    {
+        return isset($this->payload['headers']) ? $this->payload['headers'] : [];
+    }
+
+    /**
      * Prepare the request.
      */
     protected function prepareRequest()
