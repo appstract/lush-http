@@ -61,7 +61,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Get a specific header
+     * Get a specific header.
      *
      * @param $header
      *
