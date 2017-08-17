@@ -2,19 +2,28 @@
 
 namespace Appstract\LushHttp\Request;
 
+use Appstract\LushHttp\Exception\LushException;
+
 class LushRequest extends CurlRequest
 {
+    protected $allowedMethods = [
+        'DELETE',
+        'GET',
+        'HEAD',
+        'PATCH',
+        'POST',
+        'PUT',
+    ];
+
     /**
      * LushRequest constructor.
      *
-     * @param string $method
-     * @param array $payload
+     * @param array  $payload
      */
-    public function __construct($method, array $payload)
+    public function __construct(array $payload)
     {
         parent::__construct();
 
-        $this->method = $method;
         $this->payload = $payload;
 
         $this->prepareRequest();
@@ -101,9 +110,40 @@ class LushRequest extends CurlRequest
      */
     protected function prepareRequest()
     {
+        $this->formatUrl();
+        $this->validateInput();
         $this->addHeaders();
         $this->addParameters();
         $this->initOptions();
+    }
+
+    /**
+     * Format url
+     */
+    protected function formatUrl()
+    {
+        // append trailing slash to the
+        // baseUrl if it is missing
+        if (!empty($this->payload['base_url']) && substr($this->payload['base_url'], -1) !== '/') {
+            $this->payload['base_url'] = $this->payload['base_url'] . '/';
+        }
+
+        // append the base url
+        $this->payload['url'] = trim($this->payload['base_url']. $this->payload['url']);
+    }
+
+    /**
+     * Validate given options
+     */
+    protected function validateInput()
+    {
+        if (! filter_var($this->payload['url'], FILTER_VALIDATE_URL)) {
+            throw new LushException('URL is invalid', 100);
+        }
+
+        if (! in_array($this->payload['method'], $this->allowedMethods)) {
+            throw new LushException(sprintf("Method '%s' is not supported", $this->payload['method']), 101);
+        }
     }
 
     /**
@@ -126,13 +166,15 @@ class LushRequest extends CurlRequest
      */
     protected function addParameters()
     {
-        $parameters = http_build_query($this->payload['parameters']);
+        if (! empty($this->payload['parameters'])) {
+            $parameters = http_build_query($this->payload['parameters']);
 
-        if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
-            $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
-        } else {
-            // append parameters in the url
-            $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
+            if (in_array($this->payload['method'], ['DELETE', 'PATCH', 'POST', 'PUT'])) {
+                $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
+            } else {
+                // append parameters in the url
+                $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
+            }
         }
     }
 
@@ -164,14 +206,14 @@ class LushRequest extends CurlRequest
     protected function initOptions()
     {
         // Set method
-        if ($this->method == 'POST') {
+        if ($this->payload['method'] == 'POST') {
             $this->addCurlOption(CURLOPT_POST, true);
-        } elseif (in_array($this->method, ['DELETE', 'HEAD', 'PATCH', 'PUT'])) {
-            if ($this->method == 'HEAD') {
+        } elseif (in_array($this->payload['method'], ['DELETE', 'HEAD', 'PATCH', 'PUT'])) {
+            if ($this->payload['method'] == 'HEAD') {
                 $this->addCurlOption(CURLOPT_NOBODY, true);
             }
 
-            $this->addCurlOption(CURLOPT_CUSTOMREQUEST, $this->method);
+            $this->addCurlOption(CURLOPT_CUSTOMREQUEST, $this->payload['method']);
         }
 
         // Set allowed protocols
@@ -180,7 +222,7 @@ class LushRequest extends CurlRequest
         }
 
         // Handle options from payload
-        if (is_array($this->payload['options'])) {
+        if (! empty($this->payload['options']) && is_array($this->payload['options'])) {
             // Add authentication
             $this->handleAuthentication();
 
