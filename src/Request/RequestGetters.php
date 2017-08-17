@@ -1,11 +1,11 @@
 <?php
-namespace Appstract\LushHttp\Request;
 
+namespace Appstract\LushHttp\Request;
 
 trait RequestGetters
 {
     /**
-     * Get the payload
+     * Get the payload.
      *
      * @return array
      */
@@ -15,7 +15,7 @@ trait RequestGetters
     }
 
     /**
-     * Get the URL
+     * Get the URL.
      *
      * @return mixed|string
      */
@@ -25,7 +25,7 @@ trait RequestGetters
     }
 
     /**
-     * Get all parameters
+     * Get all parameters.
      *
      * @return array|mixed
      */
@@ -47,7 +47,7 @@ trait RequestGetters
     }
 
     /**
-     * Get all options
+     * Get all options.
      *
      * @return array|mixed
      */
@@ -69,7 +69,7 @@ trait RequestGetters
     }
 
     /**
-     * Get all headers
+     * Get all headers.
      *
      * @return array|mixed
      */
