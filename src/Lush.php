@@ -26,7 +26,7 @@ class Lush
         $this->baseload = [
             'base_url' => trim($baseUrl),
             'options' => $options,
-            'headers' => $headers
+            'headers' => $headers,
         ];
     }
 
@@ -49,7 +49,7 @@ class Lush
             'url' => trim($url),
             'parameters' => $parameters,
             'headers' => array_merge($this->baseload['headers'], $headers),
-            'options' => array_merge($this->baseload['options'], $options)
+            'options' => array_merge($this->baseload['options'], $options),
         ]);
 
         return $request->send();

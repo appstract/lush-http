@@ -1,6 +1,6 @@
 <?php
-namespace Appstract\LushHttp\Response;
 
+namespace Appstract\LushHttp\Response;
 
 trait ResponseGetters
 {

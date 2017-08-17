@@ -45,22 +45,22 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Format url
+     * Format url.
      */
     protected function formatUrl()
     {
         // append trailing slash to the
         // baseUrl if it is missing
-        if (!empty($this->payload['base_url']) && substr($this->payload['base_url'], -1) !== '/') {
-            $this->payload['base_url'] = $this->payload['base_url'] . '/';
+        if (! empty($this->payload['base_url']) && substr($this->payload['base_url'], -1) !== '/') {
+            $this->payload['base_url'] = $this->payload['base_url'].'/';
         }
 
         // append the base url
-        $this->payload['url'] = trim($this->payload['base_url']. $this->payload['url']);
+        $this->payload['url'] = trim($this->payload['base_url'].$this->payload['url']);
     }
 
     /**
-     * Validate given options
+     * Validate given options.
      */
     protected function validateInput()
     {
