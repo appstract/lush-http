@@ -9,46 +9,21 @@ use Appstract\LushHttp\Request\Adapter\AdapterInterface;
 
 abstract class CurlRequest
 {
-    /**
-     * @var
-     */
     public $method;
-    /**
-     * @var
-     */
+
     public $payload;
 
-    /**
-     * @var array
-     */
-    public $headers;
-
-    /**
-     * @var array
-     */
     public $options = [];
 
-    /**
-     * @var array
-     */
+    protected $curlOptions = [];
+
     protected $defaultHeaders = [
         'X-Http-Client: Lush Http',
         'X-Lush-Http: 1',
     ];
 
-    /**
-     * @var array
-     */
-    protected $curlOptions = [];
-
-    /**
-     * @var
-     */
     protected $adapter = Adapter\Curl::class;
 
-    /**
-     * @var
-     */
     protected $client;
 
     /**

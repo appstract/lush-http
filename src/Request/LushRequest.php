@@ -6,6 +6,8 @@ use Appstract\LushHttp\Exception\LushException;
 
 class LushRequest extends CurlRequest
 {
+    use RequestGetters;
+
     protected $allowedMethods = [
         'DELETE',
         'GET',
@@ -25,84 +27,9 @@ class LushRequest extends CurlRequest
         parent::__construct();
 
         $this->payload = $payload;
+        $this->method = $payload['method'];
 
         $this->prepareRequest();
-    }
-
-    /**
-     * @return array
-     */
-    public function getPayload()
-    {
-        return $this->payload;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getUrl()
-    {
-        return isset($this->payload['url']) ? $this->payload['url'] : '';
-    }
-
-    /**
-     * @return array|mixed
-     */
-    public function getParameters()
-    {
-        return isset($this->payload['parameters']) ? $this->payload['parameters'] : [];
-    }
-
-    /**
-     * Get a specific parameter.
-     *
-     * @param $parameter
-     *
-     * @return mixed
-     */
-    public function getParameter($parameter)
-    {
-        return isset($this->getParameters()[$parameter]) ? $this->getParameters()[$parameter] : null;
-    }
-
-    /**
-     * @return array|mixed
-     */
-    public function getOptions()
-    {
-        return isset($this->payload['options']) ? $this->payload['options'] : [];
-    }
-
-    /**
-     * Get a specific option.
-     *
-     * @param $option
-     *
-     * @return mixed
-     */
-    public function getOption($option)
-    {
-        return isset($this->getOptions()[$option]) ? $this->getOptions()[$option] : null;
-    }
-
-    /**
-     * @return array|mixed
-     */
-    public function getHeaders()
-    {
-        return isset($this->payload['headers']) ? $this->payload['headers'] : [];
-    }
-
-    /**
-     * Get a specific header.
-     *
-     * @param $header
-     *
-     * @return mixed
-     */
-    public function getHeader($header)
-    {
-        return isset($this->getHeaders()[$header]) ? $this->getHeaders()[$header] : null;
     }
 
     /**
@@ -141,8 +68,8 @@ class LushRequest extends CurlRequest
             throw new LushException('URL is invalid', 100);
         }
 
-        if (! in_array($this->payload['method'], $this->allowedMethods)) {
-            throw new LushException(sprintf("Method '%s' is not supported", $this->payload['method']), 101);
+        if (! in_array($this->method, $this->allowedMethods)) {
+            throw new LushException(sprintf("Method '%s' is not supported", $this->method), 101);
         }
     }
 
@@ -169,7 +96,7 @@ class LushRequest extends CurlRequest
         if (! empty($this->payload['parameters'])) {
             $parameters = http_build_query($this->payload['parameters']);
 
-            if (in_array($this->payload['method'], ['DELETE', 'PATCH', 'POST', 'PUT'])) {
+            if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
                 $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
             } else {
                 // append parameters in the url
@@ -206,14 +133,14 @@ class LushRequest extends CurlRequest
     protected function initOptions()
     {
         // Set method
-        if ($this->payload['method'] == 'POST') {
+        if ($this->method == 'POST') {
             $this->addCurlOption(CURLOPT_POST, true);
-        } elseif (in_array($this->payload['method'], ['DELETE', 'HEAD', 'PATCH', 'PUT'])) {
-            if ($this->payload['method'] == 'HEAD') {
+        } elseif (in_array($this->method, ['DELETE', 'HEAD', 'PATCH', 'PUT'])) {
+            if ($this->method == 'HEAD') {
                 $this->addCurlOption(CURLOPT_NOBODY, true);
             }
 
-            $this->addCurlOption(CURLOPT_CUSTOMREQUEST, $this->payload['method']);
+            $this->addCurlOption(CURLOPT_CUSTOMREQUEST, $this->method);
         }
 
         // Set allowed protocols
