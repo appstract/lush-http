@@ -126,13 +126,15 @@ class LushRequest extends CurlRequest
      */
     protected function addParameters()
     {
-        $parameters = http_build_query($this->payload['parameters']);
+        if (! empty($this->payload['parameters'])) {
+            $parameters = http_build_query($this->payload['parameters']);
 
-        if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
-            $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
-        } else {
-            // append parameters in the url
-            $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
+            if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
+                $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
+            } else {
+                // append parameters in the url
+                $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
+            }
         }
     }
 
