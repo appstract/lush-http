@@ -2,8 +2,8 @@
 
 namespace Appstract\LushHttp\Events;
 
-use Appstract\LushHttp\Request\LushRequest;
 use Illuminate\Queue\SerializesModels;
+use Appstract\LushHttp\Request\LushRequest;
 use Illuminate\Foundation\Events\Dispatchable;
 
 class RequestEvent
