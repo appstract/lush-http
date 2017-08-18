@@ -176,7 +176,7 @@ class LushRequest extends CurlRequest
     protected function handleUserOptions()
     {
         foreach ($this->payload['options'] as $option => $value) {
-            $resolvedOption = OptionResolver::resolve($option);
+            $resolvedOption = RequestOptions::resolve($option);
 
             if ($resolvedOption['type'] == 'curl_option') {
                 $this->addCurlOption($resolvedOption['option'], $value);

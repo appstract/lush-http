@@ -4,10 +4,10 @@ namespace Appstract\LushHttp\Request;
 
 use Appstract\LushHttp\Exception\LushException;
 
-class OptionResolver
+class RequestOptions
 {
     /**
-     * Curl options.
+     * Configurable Curl options.
      *
      * @var array
      */
@@ -36,6 +36,25 @@ class OptionResolver
     ];
 
     /**
+     * Curl Defaults (internal).
+     *
+     * @var array
+     */
+    public static $defaultCurlOptions = [
+        CURLOPT_RETURNTRANSFER  => true,            // return web page
+        CURLOPT_HEADER          => false,           // return headers
+        CURLOPT_FOLLOWLOCATION  => true,            // follow redirects
+        CURLOPT_ENCODING        => '',              // handle compressed
+        CURLOPT_CONNECTTIMEOUT  => 60,              // time-out on connect
+        CURLOPT_TIMEOUT         => 300,             // time-out on response
+        CURLOPT_AUTOREFERER     => true,
+        CURLOPT_FAILONERROR     => true,
+        CURLOPT_USERAGENT       => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Lush Http Client',
+        //CURLOPT_COOKIEJAR       => storage_path('app/lushcookie.txt'),
+        //CURLOPT_COOKIEFILE      => storage_path('app/lushcookie.txt'),
+    ];
+
+    /**
      * @param string $option
      *
      * @return mixed
@@ -43,9 +62,15 @@ class OptionResolver
     public static function resolve($option)
     {
         if (isset(self::$curlOptions[$option])) {
-            return ['type' => 'curl_option', 'option' => self::$curlOptions[$option]];
+            return [
+                'type' => 'curl_option',
+                'option' => self::$curlOptions[$option]
+            ];
         } elseif (in_array($option, self::$lushOptions)) {
-            return ['type' => 'lush_option'];
+            return [
+                'type' => 'lush_option',
+                'option' => $option
+            ];
         }
 
         throw new LushException(sprintf("Invalid option '%s'", $option));
