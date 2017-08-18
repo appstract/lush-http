@@ -2,8 +2,8 @@
 
 namespace Appstract\LushHttp\Response;
 
-use Appstract\LushHttp\Events\ResponseEvent;
 use Appstract\LushHttp\Request\LushRequest;
+use Appstract\LushHttp\Events\ResponseEvent;
 
 class LushResponse
 {
