@@ -64,8 +64,8 @@ class LushTest extends BaseTest
         // check it
         $this->checkAll($response, $options);
 
-        $this->assertArrayHasKey('user_id', $lush->parameters);
-        $this->assertArrayHasKey('name', $lush->parameters);
+        $this->assertArrayHasKey('user_id', $response->getRequest()->getParameters());
+        $this->assertArrayHasKey('name', $response->getRequest()->getParameters());
 
         $this->assertArrayHasKey('user_id', $response->getRequest()->payload['parameters']);
         $this->assertArrayHasKey('name', $response->getRequest()->payload['parameters']);
