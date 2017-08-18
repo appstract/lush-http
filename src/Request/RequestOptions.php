@@ -64,12 +64,12 @@ class RequestOptions
         if (isset(self::$curlOptions[$option])) {
             return [
                 'type' => 'curl_option',
-                'option' => self::$curlOptions[$option]
+                'option' => self::$curlOptions[$option],
             ];
         } elseif (in_array($option, self::$lushOptions)) {
             return [
                 'type' => 'lush_option',
-                'option' => $option
+                'option' => $option,
             ];
         }
 
