@@ -2,6 +2,7 @@
 
 namespace Appstract\LushHttp\Response;
 
+use Appstract\LushHttp\Events\ResponseEvent;
 use Appstract\LushHttp\Request\LushRequest;
 
 class LushResponse
@@ -34,6 +35,10 @@ class LushResponse
 
         if (isset($this->request->options['auto_format'])) {
             $this->autoFormat = $this->request->options['auto_format'];
+        }
+
+        if (function_exists('event')) {
+            event(new ResponseEvent($this));
         }
 
         if ($this->autoFormat) {

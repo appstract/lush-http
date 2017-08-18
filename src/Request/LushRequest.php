@@ -2,6 +2,7 @@
 
 namespace Appstract\LushHttp\Request;
 
+use Appstract\LushHttp\Events\RequestEvent;
 use Appstract\LushHttp\Exception\LushException;
 
 class LushRequest extends CurlRequest
@@ -193,6 +194,10 @@ class LushRequest extends CurlRequest
      */
     public function send()
     {
+        if (function_exists('event')) {
+            event(new RequestEvent($this));
+        }
+
         return $this->makeRequest();
     }
 }
