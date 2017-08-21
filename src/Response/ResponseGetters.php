@@ -15,6 +15,16 @@ trait ResponseGetters
     }
 
     /**
+     * Get the content of the result.
+     *
+     * @return mixed
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
      * Get the headers.
      *
      * @return mixed
