@@ -87,7 +87,7 @@ class LushResponse
 
         return $this->isXml;
     }
-    
+
     /**
      * format content.
      *
