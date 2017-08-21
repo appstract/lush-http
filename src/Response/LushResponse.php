@@ -2,6 +2,7 @@
 
 namespace Appstract\LushHttp\Response;
 
+use Illuminate\Support\Collection;
 use Appstract\LushHttp\Request\LushRequest;
 use Appstract\LushHttp\Events\ResponseEvent;
 
@@ -42,7 +43,7 @@ class LushResponse
         }
 
         if ($this->autoFormat) {
-            $this->formatContent();
+            $this->content = $this->formatContent($this->content);
         }
     }
 
@@ -86,6 +87,48 @@ class LushResponse
 
         return $this->isXml;
     }
+    
+    /**
+     * format content.
+     *
+     * @param $content
+     *
+     * @return Collection
+     */
+    protected function formatContent($content)
+    {
+        if ($this->request->method == 'HEAD') {
+            return new Collection($this->headers);
+        }
+
+        if (empty($content)) {
+            return new Collection([]);
+        }
+
+        if ($this->isXml()) {
+            return new Collection($this->parseXml($content));
+        }
+
+        if ($this->isJson()) {
+            return new Collection(json_decode($content));
+        }
+
+        return new Collection($content);
+    }
+
+    /**
+     * Parse xml to array.
+     *
+     * @param $xml
+     *
+     * @return mixed
+     */
+    protected function parseXml($xml)
+    {
+        return json_decode(json_encode(
+            simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)
+        ));
+    }
 
     /**
      * Magic getter for content properties.
@@ -99,24 +142,23 @@ class LushResponse
         $return = null;
 
         // check if the property is present in the content
-        if (isset($this->content->{ $property })) {
-            $return = $this->content->{ $property };
+        if ($this->content->has($property)) {
+            $return = $this->content->get($property);
         }
 
         return $return;
     }
 
     /**
-     * Auto format content.
+     * Proxy function calls to the collection.
+     *
+     * @param       $method
+     * @param array $arguments
+     *
+     * @return mixed
      */
-    protected function formatContent()
+    public function __call($method, $arguments = [])
     {
-        if ($this->request->method == 'HEAD') {
-            $this->content = (object) $this->headers;
-        } elseif ($this->isXml()) {
-            $this->content = simplexml_load_string($this->content);
-        } elseif ($this->isJson()) {
-            $this->content = json_decode($this->content);
-        }
+        return call_user_func_array([$this->content, $method], $arguments);
     }
 }
