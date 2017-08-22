@@ -42,5 +42,12 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "aliases": {
+                "Option": "Appstract\\LushHttp\\LushFacade"
+            }
+        }
     }
 }
