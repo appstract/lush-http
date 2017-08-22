@@ -9,6 +9,14 @@ class Lush
 {
     public $baseload;
 
+    public $url;
+
+    public $parameters = [];
+
+    public $headers = [];
+
+    public $options = [];
+
     /**
      * Lush constructor.
      *
@@ -31,25 +39,65 @@ class Lush
     }
 
     /**
+     * Set the url with parameters.
+     *
+     * @param            $url
+     * @param array|null $parameters
+     *
+     * @return $this
+     */
+    public function url($url, array $parameters = [])
+    {
+        $this->url = $url;
+        $this->parameters = $parameters;
+
+        return $this;
+    }
+
+    /**
+     * Set headers.
+     *
+     * @param array $headers
+     *
+     * @return $this
+     */
+    public function headers(array $headers)
+    {
+        $this->headers = $headers;
+
+        return $this;
+    }
+
+    /**
+     * Set options.
+     *
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function options(array $options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
      * Create a request.
      *
-     * @param        $method
-     * @param        $url
-     * @param array $parameters
-     * @param array  $headers
-     * @param array  $options
+     * @param $method
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
-    public function request($method, $url = '', array $parameters = [], array $headers = [], array $options = [])
+    public function request($method)
     {
         $request = new LushRequest([
             'method' => strtoupper($method),
             'base_url' => $this->baseload['base_url'],
-            'url' => trim($url),
-            'parameters' => $parameters,
-            'headers' => array_merge($this->baseload['headers'], $headers),
-            'options' => array_merge($this->baseload['options'], $options),
+            'url' => trim($this->url),
+            'parameters' => $this->parameters,
+            'headers' => array_merge($this->baseload['headers'], $this->headers),
+            'options' => array_merge($this->baseload['options'], $this->options),
         ]);
 
         return $request->send();
@@ -63,25 +111,14 @@ class Lush
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
-    public function __call($method, array $arguments)
+    public function __call($method, array $arguments = [])
     {
-        return $this->request($method,
-            $this->parseArgument($arguments, 0, ''), // url
-            $this->parseArgument($arguments, 1), // parameters
-            $this->parseArgument($arguments, 2), // headers
-            $this->parseArgument($arguments, 3) // options
-        );
-    }
+        $scope = $this;
 
-    /**
-     * @param       $arguments
-     * @param       $key
-     * @param array $default
-     *
-     * @return array
-     */
-    protected function parseArgument($arguments, $key, $default = [])
-    {
-        return isset($arguments[$key]) ? $arguments[$key] : $default;
+        if (isset($arguments[0])) {
+            $scope = $this->url($arguments[0], isset($arguments[1]) ? $arguments[1] : []);
+        }
+
+        return $scope->request($method);
     }
 }
