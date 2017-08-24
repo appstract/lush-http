@@ -2,6 +2,8 @@
 
 namespace Appstract\LushHttp\Response;
 
+use Illuminate\Support\Collection;
+
 trait ResponseGetters
 {
     /**
@@ -11,6 +13,10 @@ trait ResponseGetters
      */
     public function getResult()
     {
+        if ($this->autoFormat) {
+            return $this->object;
+        }
+
         return $this->content;
     }
 
@@ -22,6 +28,26 @@ trait ResponseGetters
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Content as object.
+     *
+     * @return mixed
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    /**
+     * Content as Collection.
+     *
+     * @return Collection
+     */
+    public function getCollection()
+    {
+        return new Collection($this->object);
     }
 
     /**

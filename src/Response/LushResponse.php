@@ -2,7 +2,6 @@
 
 namespace Appstract\LushHttp\Response;
 
-use Illuminate\Support\Collection;
 use Appstract\LushHttp\Request\LushRequest;
 use Appstract\LushHttp\Events\ResponseEvent;
 
@@ -11,6 +10,8 @@ class LushResponse
     use ResponseGetters;
 
     public $content;
+
+    public $object;
 
     protected $request;
 
@@ -43,7 +44,7 @@ class LushResponse
         }
 
         if ($this->autoFormat) {
-            $this->content = $this->formatContent($this->content);
+            $this->object = $this->formatContent($this->content);
         }
     }
 
@@ -93,27 +94,21 @@ class LushResponse
      *
      * @param $content
      *
-     * @return Collection
+     * @return mixed
      */
     protected function formatContent($content)
     {
         if ($this->request->method == 'HEAD') {
-            return new Collection($this->headers);
-        }
-
-        if (empty($content)) {
-            return new Collection([]);
+            return json_decode($this->headers);
         }
 
         if ($this->isXml()) {
-            return new Collection($this->parseXml($content));
+            return json_decode($this->parseXml($content));
         }
 
         if ($this->isJson()) {
-            return new Collection(json_decode($content));
+            return json_decode($content);
         }
-
-        return new Collection($content);
     }
 
     /**
@@ -125,9 +120,9 @@ class LushResponse
      */
     protected function parseXml($xml)
     {
-        return json_decode(json_encode(
+        return json_encode(
             simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)
-        ));
+        );
     }
 
     /**
@@ -141,9 +136,9 @@ class LushResponse
     {
         $return = null;
 
-        // check if the property is present in the content
-        if ($this->content->has($property)) {
-            $return = $this->content->get($property);
+        // check if the property is present in the content object
+        if (isset($this->object->{ $property })) {
+            $return = $this->object->{ $property };
         }
 
         return $return;
@@ -159,6 +154,6 @@ class LushResponse
      */
     public function __call($method, $arguments = [])
     {
-        return call_user_func_array([$this->content, $method], $arguments);
+        return call_user_func_array([$this->getCollection(), $method], $arguments);
     }
 }

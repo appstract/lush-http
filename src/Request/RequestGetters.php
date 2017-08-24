@@ -21,7 +21,7 @@ trait RequestGetters
      */
     public function getUrl()
     {
-        return isset($this->payload['url']) ? $this->payload['url'] : '';
+        return isset($this->payload['url']) ? $this->payload['url'] : null;
     }
 
     /**
