@@ -83,6 +83,20 @@ class Lush
     }
 
     /**
+     * Reset all request options.
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->url = '';
+        $this->parameters = [];
+        $this->headers = [];
+        $this->options = [];
+
+        return $this;
+    }
+    /**
      * Create a request.
      *
      * @param $method
