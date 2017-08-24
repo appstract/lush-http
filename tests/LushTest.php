@@ -58,17 +58,14 @@ class LushTest extends BaseTest
         ];
 
         // the test
-        $lush = new Lush($options['url']);
-        $response = $lush->get('', $options['parameters']);
+        $lush = new Lush();
+        $response = $lush->url($options['url'], $options['parameters'])->get();
 
         // check it
         $this->checkAll($response, $options);
 
         $this->assertArrayHasKey('user_id', $response->getRequest()->getParameters());
         $this->assertArrayHasKey('name', $response->getRequest()->getParameters());
-
-        $this->assertArrayHasKey('user_id', $response->getRequest()->payload['parameters']);
-        $this->assertArrayHasKey('name', $response->getRequest()->payload['parameters']);
 
         $this->checkUrlParameters($response->getRequest()->payload['url'], $options['parameters']);
     }

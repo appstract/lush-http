@@ -52,7 +52,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         // we should have content
         $this->assertNotNull($response->getResult());
 
-        // check if content is of specified type
+        // check if content is of specified type (json / xml)
         if ($type) {
             $fn = 'is'.ucfirst($type);
             $this->assertTrue($response->{ $fn }());

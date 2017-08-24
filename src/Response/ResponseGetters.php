@@ -13,7 +13,7 @@ trait ResponseGetters
      */
     public function getResult()
     {
-        if ($this->autoFormat) {
+        if ($this->autoFormat && !empty($this->object)) {
             return $this->object;
         }
 
