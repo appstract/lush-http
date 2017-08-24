@@ -96,6 +96,7 @@ class Lush
 
         return $this;
     }
+
     /**
      * Create a request.
      *
