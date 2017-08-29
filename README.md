@@ -5,19 +5,20 @@
 [![Build Status](https://img.shields.io/travis/appstract/lush-http/master.svg?style=flat-square)](https://travis-ci.org/appstract/lush-http)
 [![Total Downloads](https://img.shields.io/packagist/dt/appstract/lush-http.svg?style=flat-square)](https://packagist.org/packages/appstract/lush-http)
 
-## Fast, Synchronous and Smart Http Client for PHP.
+## Smart Http Client for PHP.
 
-The goal is to delivery a small package for when you just need to make some Http calls, not to deliver a complex, expandable framework. 
-We support the most common features you need when making Http calls.
+Lush is a small Http client that focuses on the most basic use cases. It also tries to format the responses to objects, so you don't have to. 
+This makes Lush great for API requests.
 
-[wip]
+Lush can be installed in any PHP application through composer, but has some extras when used in combination with Laravel.
+
+### Wip
 
 This package is still in development, you are free to try it, without any warranty.
 When we release a final version, we will try to make it as backwards-compatible as possible and we will even try to support multiple versions in the same project, to avoid version conflicts.
 
 Todo
 - Support cookies
-- More tests
 - Docs
 
 ## Requirements
@@ -33,21 +34,23 @@ composer require appstract/lush-http
 ```
 
 ## Usage
+The most basic usage:
 
 ``` php
-    $api = new Lush('http://example.com');
-    $response = $api->get('contacts', ['id' => 3]);
+    // Create a new instance
+    $lush = new Lush();
     
-    // response returns json?
-    // you can directly access it's properties
+    // Make a requests
+    $response = $lush->url('http://example.com', ['id' => 3])
+                        ->headers(['X-some-header' => 'some-value']
+                        ->get(); // Method (get, post, put, etc.)
+    
+    // Response returns JSON or XML?
+    // then you can directly access it's properties
     echo $response->name;
 ```
 
-## Testing
-
-``` bash
-$ composer test
-```
+Link to the docs will be added soon!
 
 ## Contributing
 
