@@ -9,9 +9,9 @@ class LushResponse
 {
     use ResponseGetters;
 
-    public $content;
+    protected $content;
 
-    public $object;
+    protected $object;
 
     protected $request;
 
