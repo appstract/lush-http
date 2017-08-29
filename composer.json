@@ -46,7 +46,7 @@
     "extra": {
         "laravel": {
             "aliases": {
-                "Option": "Appstract\\LushHttp\\LushFacade"
+                "Lush": "Appstract\\LushHttp\\LushFacade"
             }
         }
     }
