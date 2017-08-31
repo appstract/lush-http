@@ -158,17 +158,17 @@ class LushResponse implements JsonSerializable
         return call_user_func_array([$this->getCollection(), $method], $arguments);
     }
 
-
     /**
      * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'content'   => $this->getContent(),
             'object'    => $this->getObject(),
             'headers'   => $this->getHeaders(),
             'is_json'   => $this->isJson(),
-            'is_xml'    => $this->isXml()
+            'is_xml'    => $this->isXml(),
         ];
     }
 }
