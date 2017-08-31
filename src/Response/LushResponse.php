@@ -2,10 +2,11 @@
 
 namespace Appstract\LushHttp\Response;
 
+use JsonSerializable;
 use Appstract\LushHttp\Request\LushRequest;
 use Appstract\LushHttp\Events\ResponseEvent;
 
-class LushResponse
+class LushResponse implements JsonSerializable
 {
     use ResponseGetters;
 
@@ -39,12 +40,12 @@ class LushResponse
             $this->autoFormat = $this->request->options['auto_format'];
         }
 
-        if (function_exists('event')) {
-            event(new ResponseEvent($this));
-        }
-
         if ($this->autoFormat) {
             $this->object = $this->formatContent($this->content);
+        }
+
+        if (function_exists('event')) {
+            event(new ResponseEvent($this));
         }
     }
 
@@ -155,5 +156,19 @@ class LushResponse
     public function __call($method, $arguments = [])
     {
         return call_user_func_array([$this->getCollection(), $method], $arguments);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize() {
+        return [
+            'content'   => $this->getContent(),
+            'object'    => $this->getObject(),
+            'headers'   => $this->getHeaders(),
+            'is_json'   => $this->isJson(),
+            'is_xml'    => $this->isXml()
+        ];
     }
 }
