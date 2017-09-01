@@ -164,6 +164,7 @@ class LushResponse implements JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'request'   => $this->getRequest(),
             'content'   => $this->getContent(),
             'object'    => $this->getObject(),
             'headers'   => $this->getHeaders(),

@@ -2,17 +2,15 @@
 
 namespace Appstract\LushHttp\Exception;
 
+use Appstract\LushHttp\Events\RequestExceptionEvent;
+
 class LushRequestException extends BaseException
 {
-    /**
-     * @var string
-     */
     public $request;
 
-    /**
-     * @var mixed
-     */
     public $response;
+
+    public $message;
 
     /**
      * RequestException constructor.
@@ -24,12 +22,17 @@ class LushRequestException extends BaseException
     {
         $this->request = $request;
         $this->response = $error['response'];
+        $this->message = $error['message'];
 
         if (! isset($error['message']) || empty($error['message'])) {
-            $error['message'] = json_encode($this->getContent());
+            $this->message = json_encode($this->getContent());
         }
 
-        parent::__construct($error['message'], $error['code']);
+        if (function_exists('event')) {
+            event(new RequestExceptionEvent($this));
+        }
+
+        parent::__construct($this->message, $error['code']);
     }
 
     /**
