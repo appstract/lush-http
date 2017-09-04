@@ -100,7 +100,7 @@ class LushResponse implements JsonSerializable
     protected function formatContent($content)
     {
         if ($this->request->method == 'HEAD') {
-            return json_decode($this->headers);
+            return (object) $this->headers;
         }
 
         if ($this->isXml()) {
