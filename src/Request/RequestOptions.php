@@ -33,7 +33,7 @@ class RequestOptions
 
         'return_status',        // (internal) used for testing return status
         'return_content_type',  // (internal) used for testing content types
-        'body_format'           // (internal) used for body formatting
+        'body_format',           // (internal) used for body formatting
     ];
 
     /**
