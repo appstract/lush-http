@@ -97,7 +97,7 @@ class LushRequest extends CurlRequest
         if (! empty($this->payload['parameters'])) {
             if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
                 $this->addCurlOption(CURLOPT_POSTFIELDS, $this->formattedRequestBody());
-            } else if (is_array($this->payload['parameters'])) {
+            } elseif (is_array($this->payload['parameters'])) {
                 // append parameters in the url
                 $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $this->formattedRequestBody());
             }
@@ -105,7 +105,7 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     * Get formatted request body based on body_format
+     * Get formatted request body based on body_format.
      *
      * @return null|string
      */
@@ -114,8 +114,8 @@ class LushRequest extends CurlRequest
         if (isset($this->payload['options']['body_format'])) {
             if ($this->payload['options']['body_format'] == 'json') {
                 return json_encode($this->payload['parameters']);
-            } else if ($this->payload['options']['body_format'] == 'form_params') {
-                return null;
+            } elseif ($this->payload['options']['body_format'] == 'form_params') {
+                return;
             }
         }
 
