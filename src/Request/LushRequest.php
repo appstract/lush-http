@@ -41,7 +41,7 @@ class LushRequest extends CurlRequest
         $this->formatUrl();
         $this->validateInput();
         $this->addHeaders();
-        $this->addParameters();
+        $this->addRequestBody();
         $this->initOptions();
     }
 
@@ -90,20 +90,36 @@ class LushRequest extends CurlRequest
     }
 
     /**
-     *  Add request parameters.
+     *  Add request body.
      */
-    protected function addParameters()
+    protected function addRequestBody()
     {
         if (! empty($this->payload['parameters'])) {
-            $parameters = http_build_query($this->payload['parameters']);
-
             if (in_array($this->method, ['DELETE', 'PATCH', 'POST', 'PUT'])) {
-                $this->addCurlOption(CURLOPT_POSTFIELDS, $parameters);
-            } else {
+                $this->addCurlOption(CURLOPT_POSTFIELDS, $this->formattedRequestBody());
+            } else if (is_array($this->payload['parameters'])) {
                 // append parameters in the url
-                $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $parameters);
+                $this->payload['url'] = sprintf('%s?%s', $this->payload['url'], $this->formattedRequestBody());
             }
         }
+    }
+
+    /**
+     * Get formatted request body based on body_format
+     *
+     * @return null|string
+     */
+    protected function formattedRequestBody()
+    {
+        if (isset($this->payload['options']['body_format'])) {
+            if ($this->payload['options']['body_format'] == 'json') {
+                return json_encode($this->payload['parameters']);
+            } else if ($this->payload['options']['body_format'] == 'form_params') {
+                return null;
+            }
+        }
+
+        return http_build_query($this->payload['parameters']);
     }
 
     /**

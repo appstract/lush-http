@@ -26,7 +26,7 @@ class Lush
      */
     public function __construct($baseUrl = '', array $options = [], array $headers = [])
     {
-        // without curl, we can't do anything
+        // We need cUrl to work
         if (! extension_loaded('curl') || ! function_exists('curl_init')) {
             throw new LushException('cUrl is not enabled on this server');
         }
@@ -42,11 +42,11 @@ class Lush
      * Set the url with parameters.
      *
      * @param            $url
-     * @param array|null $parameters
+     * @param array|object $parameters
      *
      * @return $this
      */
-    public function url($url, array $parameters = [])
+    public function url($url, $parameters = [])
     {
         $this->url = $url;
         $this->parameters = $parameters;
@@ -98,6 +98,32 @@ class Lush
     }
 
     /**
+     * Post as Json
+     *
+     * @return $this
+     */
+    public function asJson()
+    {
+        $this->addOption('body_format', 'json');
+        $this->addHeader('content_type', 'application/json');
+
+        return $this;
+    }
+
+    /**
+     * Post as form params
+     *
+     * @return $this
+     */
+    public function asFormParams()
+    {
+        $this->addOption('body_format', 'form_params');
+        $this->addHeader('content_type', 'application/x-www-form-urlencoded');
+
+        return $this;
+    }
+
+    /**
      * Create a request.
      *
      * @param $method
@@ -135,5 +161,27 @@ class Lush
         }
 
         return $scope->request($method);
+    }
+
+    /**
+     * Add header
+     *
+     * @param $name
+     * @param $value
+     */
+    protected function addHeader($name, $value)
+    {
+        $this->baseload['headers'] = array_merge($this->baseload['headers'], [$name => $value]);
+    }
+
+    /**
+     * Add option
+     *
+     * @param $name
+     * @param $value
+     */
+    protected function addOption($name, $value)
+    {
+        $this->baseload['options'] = array_merge($this->baseload['options'], [$name => $value]);
     }
 }

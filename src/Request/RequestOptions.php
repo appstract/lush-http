@@ -32,7 +32,8 @@ class RequestOptions
         'password',             // password for authentication
 
         'return_status',        // (internal) used for testing return status
-        'return_content_type', // (internal) used for testing content types
+        'return_content_type',  // (internal) used for testing content types
+        'body_format'           // (internal) used for body formatting
     ];
 
     /**
