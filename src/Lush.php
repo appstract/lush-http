@@ -117,7 +117,6 @@ class Lush
      */
     public function asFormParams()
     {
-        $this->addOption('body_format', 'form_params');
         $this->addHeader('content_type', 'application/x-www-form-urlencoded');
 
         return $this;

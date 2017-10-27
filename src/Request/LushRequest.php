@@ -111,12 +111,8 @@ class LushRequest extends CurlRequest
      */
     protected function formattedRequestBody()
     {
-        if (isset($this->payload['options']['body_format'])) {
-            if ($this->payload['options']['body_format'] == 'json') {
-                return json_encode($this->payload['parameters']);
-            } else if ($this->payload['options']['body_format'] == 'form_params') {
-                return null;
-            }
+        if (isset($this->payload['options']['body_format']) && $this->payload['options']['body_format'] == 'json') {
+            return json_encode($this->payload['parameters']);
         }
 
         return http_build_query($this->payload['parameters']);
