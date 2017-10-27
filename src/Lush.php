@@ -98,7 +98,7 @@ class Lush
     }
 
     /**
-     * Post as Json
+     * Post as Json.
      *
      * @return $this
      */
@@ -111,7 +111,7 @@ class Lush
     }
 
     /**
-     * Post as form params
+     * Post as form params.
      *
      * @return $this
      */
@@ -163,7 +163,7 @@ class Lush
     }
 
     /**
-     * Add header
+     * Add header.
      *
      * @param $name
      * @param $value
@@ -174,7 +174,7 @@ class Lush
     }
 
     /**
-     * Add option
+     * Add option.
      *
      * @param $name
      * @param $value
