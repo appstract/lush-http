@@ -20,7 +20,7 @@ class RequestOptions
         'follow_redirects'  => CURLOPT_FOLLOWLOCATION,  // follow redirects
         'fail_on_error'     => CURLOPT_FAILONERROR,     // throw exception if return code is not a success code
         'verify_ssl'        => CURLOPT_SSL_VERIFYPEER,  // verify ssl
-        'verify_host'       => CURLOPT_SSL_VERIFYHOST   // verify host domain
+        'verify_host'       => CURLOPT_SSL_VERIFYHOST,   // verify host domain
     ];
 
     /**
