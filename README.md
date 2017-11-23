@@ -15,7 +15,6 @@ Lush can be installed in any PHP application through composer, but has some extr
 ### Wip
 
 This package is still in development, you are free to try it, without any warranty.
-When we release a final version, we will try to make it as backwards-compatible as possible and we will even try to support multiple versions in the same project, to avoid version conflicts.
 
 Todo
 - Support cookies
