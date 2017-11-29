@@ -21,6 +21,8 @@ class RequestOptions
         'fail_on_error'     => CURLOPT_FAILONERROR,     // throw exception if return code is not a success code
         'verify_ssl'        => CURLOPT_SSL_VERIFYPEER,  // verify ssl
         'verify_host'       => CURLOPT_SSL_VERIFYHOST,   // verify host domain
+        'dns_cache'         => CURLOPT_DNS_USE_GLOBAL_CACHE, // Use DNS Cache
+        'dns_lifetime'      => CURLOPT_DNS_CACHE_TIMEOUT // DNS lifetime in seconds
     ];
 
     /**
@@ -44,15 +46,17 @@ class RequestOptions
      * @var array
      */
     public static $defaultCurlOptions = [
-        CURLOPT_RETURNTRANSFER  => true,            // return web page
-        CURLOPT_HEADER          => false,           // return headers
-        CURLOPT_FOLLOWLOCATION  => true,            // follow redirects
-        CURLOPT_ENCODING        => '',              // handle compressed
-        CURLOPT_CONNECTTIMEOUT  => 60,              // time-out on connect
-        CURLOPT_TIMEOUT         => 300,             // time-out on response
-        CURLOPT_AUTOREFERER     => true,
-        CURLOPT_FAILONERROR     => true,
-        CURLOPT_USERAGENT       => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Lush Http Client',
+        CURLOPT_RETURNTRANSFER          => true,            // return web page
+        CURLOPT_HEADER                  => false,           // return headers
+        CURLOPT_FOLLOWLOCATION          => true,            // follow redirects
+        CURLOPT_ENCODING                => '',              // handle compressed
+        CURLOPT_CONNECTTIMEOUT          => 60,              // time-out on connect
+        CURLOPT_TIMEOUT                 => 300,             // time-out on response
+        CURLOPT_AUTOREFERER             => true,
+        CURLOPT_FAILONERROR             => true,
+        CURLOPT_DNS_USE_GLOBAL_CACHE    => true,            // Use DNS cache
+        CURLOPT_DNS_CACHE_TIMEOUT       => 120,             // DNS lifetime in seconds
+        CURLOPT_USERAGENT               => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Lush Http Client',
         //CURLOPT_COOKIEJAR       => storage_path('app/lushcookie.txt'),
         //CURLOPT_COOKIEFILE      => storage_path('app/lushcookie.txt'),
     ];
