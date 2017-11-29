@@ -22,7 +22,7 @@ class RequestOptions
         'verify_ssl'        => CURLOPT_SSL_VERIFYPEER,  // verify ssl
         'verify_host'       => CURLOPT_SSL_VERIFYHOST,   // verify host domain
         'dns_cache'         => CURLOPT_DNS_USE_GLOBAL_CACHE, // Use DNS Cache
-        'dns_lifetime'      => CURLOPT_DNS_CACHE_TIMEOUT // DNS lifetime in seconds
+        'dns_lifetime'      => CURLOPT_DNS_CACHE_TIMEOUT, // DNS lifetime in seconds
     ];
 
     /**
