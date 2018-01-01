@@ -21,7 +21,7 @@ class Lush
 
     public $options = [];
 
-    const COOKIE_FILE = 'cookiejar/cookie.txt';
+    const COOKIE_FILE = 'cookiejar/cookies.txt';
 
     /**
      * Lush constructor.

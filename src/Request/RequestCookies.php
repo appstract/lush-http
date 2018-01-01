@@ -54,7 +54,7 @@ trait RequestCookies
      */
     protected function setCookieFile($cookieFile)
     {
-        $this->cookieFile = $cookieFile ? $cookieFile : realpath(__DIR__.'/../../'.Lush::COOKIE_FILE);
+        $this->cookieFile = $cookieFile ? $cookieFile : __DIR__.'/../../'.Lush::COOKIE_FILE;
 
         if (!file_exists($this->cookieFile)) {
             file_put_contents($this->cookieFile, '');
@@ -64,7 +64,7 @@ trait RequestCookies
             throw new LushException(sprintf('Cookie file %s is not readable', $this->cookieFile));
         }
 
-        $this->addOption('cookie_file', $this->cookieFile);
+        $this->addOption('cookie_file', realpath($this->cookieFile));
     }
 
     /**
@@ -72,7 +72,7 @@ trait RequestCookies
      */
     protected function setCookieJar($cookieJar)
     {
-        $this->cookieJar = $cookieJar ? $cookieJar : realpath(__DIR__.'/../../'.Lush::COOKIE_FILE);
+        $this->cookieJar = $cookieJar ? $cookieJar : __DIR__.'/../../'.Lush::COOKIE_FILE;
 
         if (!file_exists($this->cookieJar)) {
             file_put_contents($this->cookieJar, '');
@@ -82,6 +82,6 @@ trait RequestCookies
             throw new LushException(sprintf('Cookie jar %s is not writable', $this->cookieJar));
         }
 
-        $this->addOption('cookiejar', $this->cookieJar);
+        $this->addOption('cookiejar', realpath($this->cookieJar));
     }
 }
