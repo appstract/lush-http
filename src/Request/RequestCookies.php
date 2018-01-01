@@ -7,12 +7,11 @@ use Appstract\LushHttp\Exception\LushException;
 
 trait RequestCookies
 {
-
     protected $cookieFile;
     protected $cookieJar;
 
     /**
-     * Use cookie file and cookiejar
+     * Use cookie file and cookiejar.
      *
      * @param null $cookieFile
      * @param null $cookieJar
@@ -27,7 +26,7 @@ trait RequestCookies
     }
 
     /**
-     * Set array of cookies
+     * Set array of cookies.
      *
      * @param array $cookies
      *
@@ -41,12 +40,11 @@ trait RequestCookies
     }
 
     /**
-     * Clear the cookie jar
+     * Clear the cookie jar.
      * @todo
      */
     public function clearCookies()
     {
-
     }
 
     /**
@@ -56,11 +54,11 @@ trait RequestCookies
     {
         $this->cookieFile = $cookieFile ? $cookieFile : realpath(__DIR__.'/../../'.Lush::COOKIE_FILE);
 
-        if (!file_exists($this->cookieFile)) {
+        if (! file_exists($this->cookieFile)) {
             file_put_contents($this->cookieFile, '');
         }
 
-        if (!fopen($this->cookieFile, 'r')) {
+        if (! fopen($this->cookieFile, 'r')) {
             throw new LushException(sprintf('Cookie file %s is not readable', $this->cookieFile));
         }
 
@@ -74,11 +72,11 @@ trait RequestCookies
     {
         $this->cookieJar = $cookieJar ? $cookieJar : realpath(__DIR__.'/../../'.Lush::COOKIE_FILE);
 
-        if (!file_exists($this->cookieJar)) {
+        if (! file_exists($this->cookieJar)) {
             file_put_contents($this->cookieJar, '');
         }
 
-        if (!fopen($this->cookieJar, 'w')) {
+        if (! fopen($this->cookieJar, 'w')) {
             throw new LushException(sprintf('Cookie jar %s is not writable', $this->cookieJar));
         }
 

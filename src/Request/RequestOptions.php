@@ -25,7 +25,7 @@ class RequestOptions
 
         'cookies'           => CURLOPT_COOKIE,           // (internal) set cookies
         'cookiejar'         => CURLOPT_COOKIEJAR,        // (internal) set cookiejar
-        'cookie_file'       => CURLOPT_COOKIEFILE        // (internal) set cookie file
+        'cookie_file'       => CURLOPT_COOKIEFILE,        // (internal) set cookie file
     ];
 
     /**
