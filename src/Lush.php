@@ -8,7 +8,6 @@ use Appstract\LushHttp\Exception\LushException;
 
 class Lush
 {
-
     use RequestCookies;
 
     public $baseload;
