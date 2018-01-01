@@ -3,10 +3,14 @@
 namespace Appstract\LushHttp;
 
 use Appstract\LushHttp\Request\LushRequest;
+use Appstract\LushHttp\Request\RequestCookies;
 use Appstract\LushHttp\Exception\LushException;
 
 class Lush
 {
+
+    use RequestCookies;
+
     public $baseload;
 
     public $url;
@@ -16,6 +20,8 @@ class Lush
     public $headers = [];
 
     public $options = [];
+
+    const COOKIE_FILE = 'cookiejar/cookie.txt';
 
     /**
      * Lush constructor.
