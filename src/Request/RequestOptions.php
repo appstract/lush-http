@@ -54,7 +54,6 @@ class RequestOptions
         CURLOPT_TIMEOUT                 => 300,             // time-out on response
         CURLOPT_AUTOREFERER             => true,
         CURLOPT_FAILONERROR             => true,
-        CURLOPT_DNS_USE_GLOBAL_CACHE    => true,            // Use DNS cache
         CURLOPT_DNS_CACHE_TIMEOUT       => 120,             // DNS lifetime in seconds
         CURLOPT_USERAGENT               => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Lush Http Client',
         //CURLOPT_COOKIEJAR       => storage_path('app/lushcookie.txt'),
