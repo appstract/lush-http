@@ -4,11 +4,11 @@ namespace Appstract\LushHttp\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Appstract\LushHttp\Request\LushRequest;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Events\Dispatcher;
 
-class RequestEvent
+class RequestEvent extends Dispatcher
 {
-    use Dispatchable, SerializesModels;
+    use SerializesModels;
 
     public $request;
 
