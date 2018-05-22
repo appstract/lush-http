@@ -3,7 +3,7 @@
 namespace Appstract\LushHttp\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
+use Appstract\LushHttp\Traits\Dispatchable;
 use Appstract\LushHttp\Exception\LushRequestException;
 
 class RequestExceptionEvent
