@@ -4,7 +4,7 @@ namespace Appstract\LushHttp\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Appstract\LushHttp\Response\LushResponse;
-use Illuminate\Foundation\Events\Dispatchable;
+use Appstract\LushHttp\Traits\Dispatchable;
 
 class ResponseEvent
 {
