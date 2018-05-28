@@ -4,11 +4,11 @@ namespace Appstract\LushHttp\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Appstract\LushHttp\Response\LushResponse;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Events\Dispatcher;
 
-class ResponseEvent
+class ResponseEvent extends Dispatcher
 {
-    use Dispatchable, SerializesModels;
+    use SerializesModels;
 
     public $response;
 

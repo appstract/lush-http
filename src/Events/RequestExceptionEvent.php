@@ -3,12 +3,12 @@
 namespace Appstract\LushHttp\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Events\Dispatcher;
 use Appstract\LushHttp\Exception\LushRequestException;
 
-class RequestExceptionEvent
+class RequestExceptionEvent extends Dispatcher
 {
-    use Dispatchable, SerializesModels;
+    use SerializesModels;
 
     public $exception;
 
