@@ -151,7 +151,7 @@ class Lush
      *
      * @return \Appstract\LushHttp\Response\LushResponse
      */
-    public function __call($method, array $arguments = [])
+    public function __call($method, $arguments)
     {
         $scope = $this;
 

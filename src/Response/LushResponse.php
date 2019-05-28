@@ -153,7 +153,7 @@ class LushResponse implements JsonSerializable
      *
      * @return mixed
      */
-    public function __call($method, $arguments = [])
+    public function __call($method, $arguments)
     {
         return call_user_func_array([$this->getCollection(), $method], $arguments);
     }
