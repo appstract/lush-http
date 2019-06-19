@@ -41,7 +41,7 @@ The most basic usage:
     
     // Make a requests
     $response = $lush->url('http://example.com', ['id' => 3])
-                        ->headers(['X-some-header' => 'some-value']
+                        ->headers(['X-some-header' => 'some-value'])
                         ->get(); // Method (get, post, put, etc.)
     
     // Response returns JSON or XML?
