@@ -2,9 +2,9 @@
 
 namespace Appstract\LushHttp\Events;
 
-use Illuminate\Queue\SerializesModels;
 use Appstract\LushHttp\Response\LushResponse;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Queue\SerializesModels;
 
 class ResponseEvent extends Dispatcher
 {

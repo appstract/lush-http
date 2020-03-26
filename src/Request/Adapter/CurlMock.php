@@ -2,8 +2,8 @@
 
 namespace Appstract\LushHttp\Request\Adapter;
 
-use Exception;
 use Appstract\LushHttp\Exception\LushRequestException;
+use Exception;
 
 class CurlMock implements AdapterInterface
 {

@@ -2,9 +2,9 @@
 
 namespace Appstract\LushHttp\Response;
 
-use JsonSerializable;
-use Appstract\LushHttp\Request\LushRequest;
 use Appstract\LushHttp\Events\ResponseEvent;
+use Appstract\LushHttp\Request\LushRequest;
+use JsonSerializable;
 
 class LushResponse implements JsonSerializable
 {

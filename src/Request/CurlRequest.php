@@ -2,10 +2,10 @@
 
 namespace Appstract\LushHttp\Request;
 
-use Appstract\LushHttp\Response\LushResponse;
 use Appstract\LushHttp\Exception\LushException;
 use Appstract\LushHttp\Exception\LushRequestException;
 use Appstract\LushHttp\Request\Adapter\AdapterInterface;
+use Appstract\LushHttp\Response\LushResponse;
 
 abstract class CurlRequest
 {

@@ -2,8 +2,8 @@
 
 namespace Appstract\LushHttp;
 
-use Appstract\LushHttp\Request\LushRequest;
 use Appstract\LushHttp\Exception\LushException;
+use Appstract\LushHttp\Request\LushRequest;
 
 class Lush
 {
